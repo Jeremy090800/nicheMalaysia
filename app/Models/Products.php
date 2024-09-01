@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Products extends Model
 {
-    //for dummy data
-    //use HasFactory;
 
     //specify the data associated with the model(optional)
     protected $table = 'products';
