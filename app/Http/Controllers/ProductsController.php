@@ -9,7 +9,7 @@ use App\Models\Products;
 
 class ProductsController extends Controller
 {
-    //store function
+    //store function (store product)
     public function store(Request $request){
 
         //validate and process the request data
@@ -34,16 +34,28 @@ class ProductsController extends Controller
 
         ]);
 
-        
-        //return json
-        //return redirect()->route('AddProducts')->with('success', 'Product created successfully!');
+        //redirect to AddProducts page
         return redirect('/products/create')->with('success', 'Product created successfully!');
+
+    }
+
+    //search funtion (search product)
+    public function search(Request $request){
+
+        $serialId = $request->input('serial_id');
+
+        $product = Products::where('serial_id',$serialId)->first();
+
+        return view('SearchProducts', [
+            'product' => $product,
+            'searchPerformed' => true
+        ]);
 
 
     }
 
 
-
-
-
 }
+
+
+
