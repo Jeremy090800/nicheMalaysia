@@ -33,6 +33,8 @@ return new class extends Migration
             //balancing point
             $table->decimal('balancing', 5, 1)->nullable();
 
+            //probabbly image column will need to put here
+
             //created_at and updated_at
             $table->timestamps();
 

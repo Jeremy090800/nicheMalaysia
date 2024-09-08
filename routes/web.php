@@ -2,43 +2,41 @@
 
 use Illuminate\Support\Facades\Route;
 
-//import UserControlle
-use App\Http\Controllers\UserController;
-//import ProductsController;
-use App\Http\Controllers\ProductsController;
 
+//import ProductsController
+use App\Http\Controllers\ProductsController;
+//import ImageController
+use App\Http\Controllers\ImagesController;
 
 
 //the main page
 Route::get('/', function () {
-    
     return view('Main');
-
 });
 
 
-
-//testing page
-Route::get('/showForm', [UserController::class, 'showForm']);
-Route::post('/submit', [UserController::class, 'handleForm']);
-Route::get('/result', [UserController::class, 'showResult']);
-
-
-//AddProduct function page
+//AddProduct function page (ProductsController)
 //return the AddProduct page to the user
 Route::get('/products/create', function () {
     return view('AddProducts');
 });
-//handle the function of store for AddProduct
+//handle the function of store for AddProducts
 Route::post('products/handle_store_products_function', [ProductsController::class, 'store']);
-
-
-
-//SearchProduct function page
 //show the SearchProduct page to the user
 Route::get('/products/search', function () {
     return view('SearchProducts');
 });
-//handle the function of search for SearchProduct
+//handle the function of search for SearchProducts
 Route::get('/products/handle_search_products_function', [ProductsController::class, 'search']);
 
+
+
+//TESTING PHASE (ImageController)
+Route::get('/products/upload_function', function(){
+    return view('ImagesProducts');
+});
+//handle the function of store for ImagesProducts
+Route::post('/products/handle_upload_function', [ImagesController::class, 'store']);
+//show every pictures inside the image_table
+Route::get('/images', [ImagesController::class, 'index'])->name('images.index');
+Route::get('/images/{id}', [ImagesController::class, 'show'])->name('images.show');

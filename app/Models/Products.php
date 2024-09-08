@@ -23,11 +23,4 @@ class Products extends Model
     
     ];
 
-    
-
-
-
-
-
-
 }
