@@ -3,10 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-//explicitly call the DB method
 use Illuminate\Support\Facades\DB;
-
 
 
 return new class extends Migration
@@ -17,22 +14,35 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images', function (Blueprint $table) {
-            //the id of the iamges_table
+            // The id of the images_table
             $table->id();
 
-            //image_name, it is nullable
-            $table->string('images_name')->nullable();
+            // Foreign key for serial_id from products
+            $table->string('serial_id');
+            $table->foreign('serial_id')->references('serial_id')-> on('products')->onDelete('cascade');
 
-            //created_at and updated_at
+            // Add columns for original file names
+            $table->string('images_file_name_1')->nullable();
+            $table->string('images_file_name_2')->nullable();
+            $table->string('images_file_name_3')->nullable();
+            $table->string('images_file_name_4')->nullable();
+            $table->string('images_file_name_5')->nullable();
+            $table->string('images_file_name_6')->nullable();
+
+            // Created_at and updated_at
             $table->timestamps();
-
         });
 
-        //image data, it is a longblob type there need a specially created 
-        DB::statement("ALTER TABLE images ADD images_data LONGBLOB");
-
-
+        // Image data, it is a longblob type
+        DB::statement("ALTER TABLE images ADD images_data_1 LONGBLOB");
+        DB::statement("ALTER TABLE images ADD images_data_2 LONGBLOB");
+        DB::statement("ALTER TABLE images ADD images_data_3 LONGBLOB");
+        DB::statement("ALTER TABLE images ADD images_data_4 LONGBLOB");
+        DB::statement("ALTER TABLE images ADD images_data_5 LONGBLOB");
+        DB::statement("ALTER TABLE images ADD images_data_6 LONGBLOB");
+        
     }
+
 
     /**
      * Reverse the migrations.

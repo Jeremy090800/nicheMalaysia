@@ -9,7 +9,7 @@
 
     <body class="bg-gray-100 min-h-screen flex flex-col">
         <header class="p-4">
-            <a href="{{ url('/seller-centre') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded inline-block">
+            <a href="{{ url('/Seller/SellerLogin') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded inline-block">
                 Seller Centre
             </a>
         </header>
@@ -19,7 +19,7 @@
                 <h1 class="text-4xl font-bold mb-8">Welcome to Niche Cue Malaysia</h1>
                 <div class="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center gap-4">
 
-                    <a href="{{ url('/products/create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full sm:w-auto">
+                    <a href="{{ url('/Seller/AddProducts') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full sm:w-auto">
                         Create New Product
                     </a>
                     

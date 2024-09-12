@@ -4,49 +4,55 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 
-//import Images Model
+// Import Images Model
 use App\Models\Images;
-
-
-use Illuminate\Suppoprt\Facades\Log;
-
 
 class ImagesController extends Controller
 {
-    
-    public function store(Request $request){
-
-        // Validate the uploaded file
+    public function store(Request $request)
+    {
+        // Validate the uploaded files
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images' => 'required|array|min:1|max:6',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
-        if($request->hasFile('image')){
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imageData = file_get_contents($image->getRealPath());
+    
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
             
-            Images::create([
-                'images_name' => $imageName,
-                'images_data' => $imageData,
-            ]);
-
-            return redirect()->back()->with('success', 'Image uploaded succesfully.');
-        
+            $imageData = [];
+            $fileNames = [];
+    
+            foreach ($images as $index => $image) {
+                if ($index >= 6) break; // Limit to 6 images
+                $imageData['images_data_' . ($index + 1)] = file_get_contents($image->getRealPath());
+                $fileNames['images_file_name_' . ($index + 1)] = $image->getClientOriginalName();
+            }
+            
+            try {
+                DB::beginTransaction();
+    
+                Images::create(array_merge($imageData, $fileNames));
+    
+                DB::commit();
+                return redirect()->back()->with('success', 'Images uploaded successfully.');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->back()->with('error', 'Failed to upload images: ' . $e->getMessage());
+            }
         }
-
-        return redirect()->back()->with('error', 'Failed to upload image');
-        
+    
+        return redirect()->back()->with('error', 'No images were uploaded');
     }
 
-    //show every pictures that exist in the images_table
-    public function index(){
+    // Show every picture that exists in the images table
+    public function index()
+    {
         $images = Images::all();
         return view('index', compact('images'));
     }
-
-
 
     public function show($id)
     {
@@ -59,14 +65,6 @@ class ImagesController extends Controller
         // Set headers and return image data
         return response($image->images_data, 200)
                 ->header('Content-Type', $mimeType)
-                ->header('Content-Disposition', 'inline; filename="' . $image->images_name . '"');
-
+                ->header('Content-Disposition', 'inline; filename="' . $image->images_file_name . '"');
     }
-    
-    
-
-
-
-
-
 }

@@ -27,19 +27,17 @@ return new class extends Migration
             //weight of the cue
             $table->decimal('weight', 3, 1);
 
-            //butt of the butt
+            //butt of the cue
             $table->string('butt');
 
-            //balancing point
+            //balancing point (5 digits, 1 decimal, nullable)
             $table->decimal('balancing', 5, 1)->nullable();
-
-            //probabbly image column will need to put here
 
             //created_at and updated_at
             $table->timestamps();
 
-
         });
+
     }
 
     /**

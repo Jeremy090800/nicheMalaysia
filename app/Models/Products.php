@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
+
 
 class Products extends Model
 {
@@ -20,7 +20,12 @@ class Products extends Model
         'weight',
         'butt',
         'balancing',
-    
+
     ];
+
+    //connection to images_table
+    public function images(){
+        return $this-> hasOne(Images::class, 'serial_id', 'serial_id');
+    }
 
 }

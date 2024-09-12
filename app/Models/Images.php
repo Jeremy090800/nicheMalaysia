@@ -13,13 +13,36 @@ class Images extends Model
 
     //define the fillable fields for mass assignment of image data
     protected $fillable = [
-        'images_name',
-        'images_data',
+        
+        'serial_id',
+        
+        //images_file_name
+        'images_file_name_1',
+        'images_file_name_2',
+        'images_file_name_3',
+        'images_file_name_4',
+        'images_file_name_5',
+        'images_file_name_6',
+
+        //images_data
+        'images_data_1',
+        'images_data_2',
+        'images_data_3',
+        'images_data_4',
+        'images_data_5',
+        'images_data_6',
+        
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    //connection to products_table
+    public function products(){
+        return $this->belongsTo(Products::class, 'serial_id', 'serial_id');
+    }
+
 
 }
