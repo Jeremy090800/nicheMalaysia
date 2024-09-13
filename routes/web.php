@@ -8,6 +8,11 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ImagesController;
 //import SellerCentreControler
 use App\Http\Controllers\Seller\SellerCentreController;
+//import SellerDashboardController
+use App\Http\Controllers\Seller\SellerDashboardController;
+
+
+
 
 // Main Page
 Route::get('/', function () {
@@ -24,9 +29,12 @@ Route::post('/Seller/SellerLogin/handle_seller_login_function', [SellerCentreCon
 
 
 //SellerDashboard Page
-Route::get('/Seller/SellerDashboard', function() {
-    return view('Seller.SellerDashboard');
-});
+// Route::get('/Seller/SellerDashboard', function() {
+//     return view('Seller.SellerDashboard', compact('products'));
+// });
+Route::get('/Seller/SellerDashboard', [SellerDashboardController::class, 'index']);
+
+
 
 
 //handle the function of logout 
@@ -62,6 +70,10 @@ Route::get('/products/handle_search_products_function', [ProductsController::cla
 
 
 
+
+
+
+//NEED TO REMOVE VERY SOON
 //TESTING PHASE (ImageController)
 Route::get('/products/upload_function', function(){
     return view('ImagesProducts');

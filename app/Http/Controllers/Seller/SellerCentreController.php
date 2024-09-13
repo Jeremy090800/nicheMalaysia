@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+// Import Images Model
+use App\Models\Images;
+// Import Products Model
+use App\Models\Products;
+
 class SellerCentreController extends Controller
 {
     // Login function from SellerCentreLogin.blade.php
@@ -44,7 +49,7 @@ class SellerCentreController extends Controller
         $request->session()->regenerate();
 
         // Redirect to login page or another page
-        return redirect('/Seller/SellerLogin')->with('success', 'You have been logged out successfully.');
+        return redirect('/')->with('success', 'You have been logged out successfully.');
     }
 
 
