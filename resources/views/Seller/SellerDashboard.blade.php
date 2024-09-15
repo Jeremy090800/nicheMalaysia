@@ -242,7 +242,8 @@
 
             function submitBulkDelete() {
                 document.getElementById('bulkDeleteForm').submit();
-            }
+            }          
+
         </script>
     </body>
 </html>
