@@ -25,6 +25,17 @@
         <main class="flex-grow flex items-center justify-center px-4">
             <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
                 <h2 class="text-3xl font-bold mb-6 text-center">Seller Centre Login</h2>
+                
+                <!-- Display error message -->
+                @if($errors->any())
+                <div class="mb-4 p-3 bg-red-200 text-red-800 rounded text-center">
+                    <ul class="list-none">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
 
                 <form method="POST" action="{{ url('/Seller/SellerLogin/handle_seller_login_function') }}" id="loginForm">
                     @csrf

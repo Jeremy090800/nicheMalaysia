@@ -30,20 +30,14 @@ class SellerCentreController extends Controller
             // Authentication passed...
             session(['seller_logged_in' => true]);
 
+        
             // Redirect to a specific page
             return redirect('/Seller/SellerDashboard');
         } 
-        
-        // else {
-        //     // If authentication fails, add a flag to session for failure
-        //     session(['auth_success' => false]);
-        
-        //     return redirect()->back();
-        // }
-        
+               
     
         return back()->withErrors([
-            'login_status' => 'The provided credentials do not match our records.',
+            'login_status' => 'Seller ID or password mismatch.',
         ]);
     }
 
