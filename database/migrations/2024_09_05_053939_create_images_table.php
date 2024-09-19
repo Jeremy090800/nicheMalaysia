@@ -14,11 +14,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images', function (Blueprint $table) {
-            // The id of the images_table
-            $table->id();
+            // // The id of the images_table
+            // $table->id();
 
-            // Foreign key for serial_id from products
-            $table->string('serial_id');
+            // Foreign key in products_table - serial_id
+            $table->string('serial_id')->primary();
             $table->foreign('serial_id')->references('serial_id')-> on('products')->onDelete('cascade');
 
             // Add columns for original file names

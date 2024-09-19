@@ -11,6 +11,18 @@ class Images extends Model
     //specify the data associated with the model (optional)
     protected $table = 'images';
 
+    //NEWLY ADDED
+    //specify the primary key
+    protected $primaryKey = 'serial_id';
+
+    //NEWLY ADDED
+    //specify that the primary key is a string
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+
+
+
     //define the fillable fields for mass assignment of image data
     protected $fillable = [
         

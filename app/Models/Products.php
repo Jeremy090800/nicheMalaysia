@@ -19,7 +19,7 @@ class Products extends Model
         'length',
         'weight',
         'butt',
-        'balancing',
+        'balancing'
 
     ];
 
