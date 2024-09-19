@@ -34,7 +34,7 @@ return new class extends Migration
             $table->decimal('balancing', 5, 1)->nullable();
 
             //category type (specify the series of the cue)
-            //$table->char('category_type'. 6);
+            $table->char('category_type', 6);
 
             //created_at and updated_at
             $table->timestamps();

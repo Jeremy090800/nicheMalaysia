@@ -13,13 +13,15 @@ use Illuminate\Validation\ValidationException;
 use App\Models\Images;
 //import Products Model
 use App\Models\Products;
+//import Categories Model
+use App\Models\Categories;
 
 class ProductsController extends Controller
 {
     // Seller
     // Store function for products
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+        
         // Validate and process the request data for products
         try {
             $data = $request->validate([
@@ -98,25 +100,10 @@ class ProductsController extends Controller
 
     }
 
+    public function fetch_categories(){
 
-    // Show every picture that exists in the images table
-    public function index()
-    {
-        $images = Images::all();
-        return view('index', compact('images'));
+        $categories = Categories::all(); // Fetch all categories
+        return view('Seller.AddProducts', compact('categories'));
     }
 
-    public function show($id)
-    {
-        $image = Images::findOrFail($id);
-
-        // Get the MIME type
-        $finfo = new \finfo(FILEINFO_MIME_TYPE);
-        $mimeType = $finfo->buffer($image->images_data);
-
-        // Set headers and return image data
-        return response($image->images_data, 200)
-                ->header('Content-Type', $mimeType)
-                ->header('Content-Disposition', 'inline; filename="' . $image->images_file_name . '"');
-    }
 }

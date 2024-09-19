@@ -30,6 +30,11 @@
                     <a href="{{ url('/products/upload_function') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
                         Image Show All
                     </a>
+
+                    <a href="{{ url('/Seller/AddCategories_SellerDashboard') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
+                        Add Category
+                    </a>
+
                 </div>
             </div>
 
@@ -242,7 +247,7 @@
 
             function submitBulkDelete() {
                 document.getElementById('bulkDeleteForm').submit();
-            }          
+            }       
 
         </script>
     </body>

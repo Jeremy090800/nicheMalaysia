@@ -28,4 +28,9 @@ class Products extends Model
         return $this-> hasOne(Images::class, 'serial_id', 'serial_id');
     }
 
+    //connection to categories_table
+    public function categories(){
+        return $this->belongsTo(Categories::class, 'category_type', 'category_type');
+    }
+
 }

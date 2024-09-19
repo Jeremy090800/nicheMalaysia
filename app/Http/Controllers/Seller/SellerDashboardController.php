@@ -12,7 +12,7 @@ use App\Models\Products;
 
 class SellerDashboardController extends Controller
 {
-    public function index()
+    public function fetch_products()
     {
         // Fetch all products and their associated images using eager loading
         $products = Products::with('images')->get(); // Eager load the 'images' relationship

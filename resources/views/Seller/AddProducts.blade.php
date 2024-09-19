@@ -13,7 +13,7 @@
         </header>
 
         <header class="p-4">
-            <a href="{{ url('/') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block" id="backButton">
+            <a href="{{ url('/Seller/SellerDashboard') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block" id="backButton">
                 &larr; Back
             </a>
         </header>
@@ -33,9 +33,49 @@
             <form method="POST" action="{{ url('Seller/AddProducts/handle_store_products_function') }}" enctype="multipart/form-data" id="productForm">
                 @csrf
                 <div class="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                    
+
                     <!-- Serial ID of the products -->
                     <h2 class="text-2xl font-bold mb-4 text-center">Create New Product</h2>
+
+
+                    <!-- Category Dropdown -->
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="text-gray-700 text-sm font-bold" for="category">
+                                Category:
+                            </label>
+
+                            <a href="{{ url('/Seller/AddCategories') }}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded transition duration-300 ease-in-out">
+                                New Category
+                            </a>
+                        </div>
+                        <div class="relative">
+                            <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="category" name="category" required>
+
+                                @forelse($categories as $category)
+                                    <option value="{{ $category->category_type }}" data-name="{{ $category->category_name }}">{{ $category->category_name }}</option>
+                                @empty
+                                    <option value="" disabled>No categories available</option>
+                                @endforelse
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                        @if($categories->isEmpty())
+                            <p class="text-red-500 text-xs italic mt-2">No categories created yet</p>
+                        @endif
+                    </div>
+
+                    <!-- Selected Category Display -->
+                    <div id="selected_category_display" class="mb-4 hidden">
+                        <p class="text-sm text-gray-600">Selected Category: <span id="selected_category_name"></span></p>
+                    </div>
+                    
+
+
+
+
                     
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="serial_id">
@@ -198,6 +238,30 @@
                 });
                 document.getElementById('imageInput').files = dataTransfer.files;
             }
+
+
+
+            //add category java script
+            document.addEventListener('DOMContentLoaded', function() {
+                const categorySelect = document.getElementById('category');
+                const serialIdInput = document.getElementById('serial_id');
+
+                categorySelect.addEventListener('change', function() {
+                    if (this.value) {
+                        const selectedOption = this.options[this.selectedIndex];
+                        const categoryName = selectedOption.getAttribute('data-name');
+                        serialIdInput.placeholder = categoryName + ' - Enter serial ID';
+                    } else {
+                        serialIdInput.placeholder = '';
+                    }
+                });
+            });
+
+
+
+
+
+
         </script>
   </body>
 </html>
