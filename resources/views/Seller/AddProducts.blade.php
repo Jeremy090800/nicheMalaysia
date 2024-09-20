@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Create New Product</title>
+      <link rel="icon" href="{{ asset('images/niche_logo.jpg') }}" type="image/jpeg">
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   </head>
 
@@ -50,7 +51,7 @@
                             </a>
                         </div>
                         <div class="relative">
-                            <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="category" name="category" required>
+                            <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="category" name="category_type" required>
 
                                 @forelse($categories as $category)
                                     <option value="{{ $category->category_type }}" data-name="{{ $category->category_name }}">{{ $category->category_name }}</option>

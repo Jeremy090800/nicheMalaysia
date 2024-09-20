@@ -14,6 +14,7 @@ class Products extends Model
     //Define the fillable fields for mass assignment
     protected $fillable = [
     
+        'category_type',
         'serial_id',
         'ferrule',
         'length',

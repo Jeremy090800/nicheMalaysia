@@ -18,6 +18,9 @@ return new class extends Migration
             //serieal_id of the product
             $table->string('serial_id')->unique();
 
+            //category type (specify the series of the cue)
+            $table->char('category_type', 6);
+
             //ferrule of the cue
             $table->string('ferrule');
 
@@ -32,9 +35,6 @@ return new class extends Migration
 
             //balancing point (5 digits, 1 decimal, nullable)
             $table->decimal('balancing', 5, 1)->nullable();
-
-            //category type (specify the series of the cue)
-            $table->char('category_type', 6);
 
             //created_at and updated_at
             $table->timestamps();

@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Seller Dashboard</title>
+        <link rel="icon" href="{{ asset('images/niche_logo.jpg') }}" type="image/jpeg">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" >
     </head>
@@ -25,10 +26,6 @@
                 <div class="flex flex-col items-center gap-4">
                     <a href="{{ url('/Seller/AddProducts') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
                         Create New Product
-                    </a>
-
-                    <a href="{{ url('/products/upload_function') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
-                        Image Show All
                     </a>
 
                     <a href="{{ url('/Seller/AddCategories_SellerDashboard') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
@@ -57,6 +54,8 @@
                                         <input type="checkbox" id="selectAll" onclick="toggleAllCheckboxes()">
                                     </th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serial ID</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category Serial</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ferrule</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Length</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weight</th>
@@ -73,6 +72,8 @@
                                             <input type="checkbox" name="selected_products[]" value="{{ $product->id }}" class="product-checkbox" data-serial-id="{{ $product->serial_id }}">
                                         </td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->serial_id }}</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_name }}</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_type }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->ferrule }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->length }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->weight }}</td>

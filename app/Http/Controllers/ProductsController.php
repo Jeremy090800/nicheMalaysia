@@ -25,6 +25,7 @@ class ProductsController extends Controller
         // Validate and process the request data for products
         try {
             $data = $request->validate([
+                'category_type' => 'required|exists:categories,category_type',
                 'serial_id' => [
                     'required',
                     Rule::unique('products'),
@@ -49,6 +50,7 @@ class ProductsController extends Controller
         // Save the product 
         $product = Products::create([
             'serial_id' => $data['serial_id'],
+            'category_type' => $data['category_type'],
             'ferrule' => $data['ferrule'],
             'length' => $data['length'],
             'weight' => $data['weight'],
@@ -75,7 +77,7 @@ class ProductsController extends Controller
                 Images::create(array_merge($imageData, $fileNames, ['serial_id' => $serialId]));
 
                 DB::commit();
-                return redirect('/Seller/AddProducts')->with('success', 'Product and images uploaded successfully.');
+                return redirect('/Seller/AddProducts')->with('success', 'Product uploaded successfully.');
             } catch (\Exception $e) {
                 DB::rollBack();
                 return redirect()->back()->with('error', 'Failed to upload images: ' . $e->getMessage());
@@ -91,7 +93,9 @@ class ProductsController extends Controller
     public function search(Request $request){
 
         $serialId = $request->input('serial_id');
-        $product = Products::with('images')->where('serial_id', $serialId)->first();
+
+        //Load the category relationship along with the images
+        $product = Products::with(['images', 'categories'])->where('serial_id', $serialId)->first();
 
         return view('Buyer.BuyerSearchProducts',[
             'product' => $product,
