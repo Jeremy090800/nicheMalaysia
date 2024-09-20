@@ -23,16 +23,16 @@ class CategoriesController extends Controller
         // Validate and process the request data for categories
         try {
             $data = $request->validate([
-                'category_type' => 'required|string|max:6|unique:categories,category_type',
+                'category_prefix' => 'required|string|max:6|unique:categories,category_prefix',
                 'category_name' => 'required|string|max:255',
                 'category_description' => 'nullable|string',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             $errors = [];
         
-            // Check for category_type validation error
-            if ($e->validator->errors()->has('category_type')) {
-                $errors['category_type'] = 'This Category Type already exists.';
+            // Check for category_prefix validation error
+            if ($e->validator->errors()->has('category_prefix')) {
+                $errors['category_prefix'] = 'This Category Type already exists.';
             }
     
             // Check for category_name validation error
@@ -53,7 +53,7 @@ class CategoriesController extends Controller
 
         // Save the category
         $category = Categories::create([
-            'category_type' => $data['category_type'],
+            'category_prefix' => $data['category_prefix'],
             'category_name' => $data['category_name'],
             'category_description' => $data['category_description'],
         ]);
@@ -77,16 +77,16 @@ class CategoriesController extends Controller
         //validate and process the request data for categories
         try {
             $data = $request->validate([
-                'category_type' => 'required|string|max:6|unique:categories,category_type',
+                'category_prefix' => 'required|string|max:6|unique:categories,category_prefix',
                 'category_name' => 'required|string|max:255',
                 'category_description' => 'nullable|string',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             $errors = [];
         
-            // Check for category_type validation error
-            if ($e->validator->errors()->has('category_type')) {
-                $errors['category_type'] = 'This Category Type already exists.';
+            // Check for category_prefix validation error
+            if ($e->validator->errors()->has('category_prefix')) {
+                $errors['category_prefix'] = 'This Category Type already exists.';
             }
     
             // Check for category_name validation error
@@ -107,7 +107,7 @@ class CategoriesController extends Controller
 
         // Save the category
         $category = Categories::create([
-            'category_type' => $data['category_type'],
+            'category_prefix' => $data['category_prefix'],
             'category_name' => $data['category_name'],
             'category_description' => $data['category_description'],
         ]);

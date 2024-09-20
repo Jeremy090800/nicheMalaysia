@@ -51,10 +51,10 @@
                             </a>
                         </div>
                         <div class="relative">
-                            <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="category" name="category_type" required>
+                            <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="category" name="category_prefix" required>
 
                                 @forelse($categories as $category)
-                                    <option value="{{ $category->category_type }}" data-name="{{ $category->category_name }}">{{ $category->category_name }}</option>
+                                    <option value="{{ $category->category_prefix }}" data-name="{{ $category->category_name }}">{{ $category->category_name }}</option>
                                 @empty
                                     <option value="" disabled>No categories available</option>
                                 @endforelse
@@ -68,22 +68,25 @@
                         @endif
                     </div>
 
-                    <!-- Selected Category Display -->
-                    <div id="selected_category_display" class="mb-4 hidden">
-                        <p class="text-sm text-gray-600">Selected Category: <span id="selected_category_name"></span></p>
-                    </div>
-                    
-
-
-
-
-                    
+                    <!--newly added-->
                     <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="serial_id">
+                            Serial ID (Update):
+                        </label>
+                        <div class="flex items-center">
+                            <span id="serialPrefix" class="bg-gray-200 text-gray-700 py-2 px-3 rounded-l"></span>
+                            <input class="shadow appearance-none border rounded-r w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="serial_id" name="serial_id" required>
+                        </div>
+                    </div>
+
+
+
+                    {{-- <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="serial_id">
                             Serial ID:
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="serial_id" name="serial_id" required>
-                    </div>
+                    </div> --}}
                     
                     <!-- Ferrule of the products -->
                     <div class="mb-4">
@@ -180,7 +183,6 @@
                 }
             });
 
-
             document.getElementById('imageInput').addEventListener('change', function(event) {
                 const newFiles = Array.from(event.target.files);
 
@@ -246,17 +248,22 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const categorySelect = document.getElementById('category');
                 const serialIdInput = document.getElementById('serial_id');
+                const serialPrefix = document.getElementById('serialPrefix');
 
-                categorySelect.addEventListener('change', function() {
-                    if (this.value) {
-                        const selectedOption = this.options[this.selectedIndex];
-                        const categoryName = selectedOption.getAttribute('data-name');
-                        serialIdInput.placeholder = categoryName + ' - Enter serial ID';
-                    } else {
-                        serialIdInput.placeholder = '';
-                    }
-                });
+                function updateSerialPrefix() {
+                    const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+                    const categoryName = selectedOption.getAttribute('data-name');
+                    const categoryType = selectedOption.value;
+
+                    serialPrefix.textContent = categoryType + '-';
+                }
+
+                categorySelect.addEventListener('change', updateSerialPrefix);
+
+                // Initial call to set the correct prefix and placeholder
+                updateSerialPrefix();
             });
+
 
 
 

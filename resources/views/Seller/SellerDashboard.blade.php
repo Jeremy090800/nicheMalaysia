@@ -29,7 +29,7 @@
                     </a>
 
                     <a href="{{ url('/Seller/AddCategories_SellerDashboard') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
-                        Add Category
+                        Create New Category
                     </a>
 
                 </div>
@@ -55,11 +55,10 @@
                                     </th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serial ID</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category Serial</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ferrule</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Length</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weight</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Butt</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ferrule(mm)</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Length(mm)</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weight(mm)</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Butt(mm)</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balancing</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Images</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -71,9 +70,9 @@
                                         <td class="px-4 py-2 whitespace-nowrap">
                                             <input type="checkbox" name="selected_products[]" value="{{ $product->id }}" class="product-checkbox" data-serial-id="{{ $product->serial_id }}">
                                         </td>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->serial_id }}</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_prefix }}-{{ $product->serial_id }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_name }}</td>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_type }}</td>
+
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->ferrule }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->length }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->weight }}</td>

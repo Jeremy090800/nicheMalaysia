@@ -38,10 +38,10 @@
                     <h2 class="text-2xl font-bold mb-4 text-center">Create New Category</h2>
                     
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="category_type">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="category_prefix">
                             Category Type:
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="category_type" name="category_type" required>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="category_prefix" name="category_prefix" required>
                     </div>
                     
                     <!-- Category Name -->
@@ -57,7 +57,10 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="category_description">
                             Category Description:
                         </label>
-                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="category_description" name="category_description"></textarea>
+                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-40" id="category_description" name="category_description" maxlength="16383"></textarea>
+                        <div class="mt-2 text-gray-600" id="charCount">
+                            Maximum characters: 16,383 | Used: 0
+                        </div>
                     </div>
 
                     <!-- Submit Button -->
@@ -88,7 +91,7 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($categories as $category)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->category_type }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->category_prefix }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->category_name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->category_description }}</td>
                                 </tr>
@@ -103,6 +106,25 @@
             let formChanged = false;
             let isFormSubmitting = false;
         
+
+            // Character count functionality
+            const descriptionField = document.getElementById('category_description');
+            const charCountDisplay = document.getElementById('charCount');
+            const maxChars = 16383;
+
+            function updateCharCount() {
+                const charCount = descriptionField.value.length;
+                charCountDisplay.textContent = `Maximum characters: ${maxChars} | Used: ${charCount}`;
+            }
+
+            descriptionField.addEventListener('input', function() {
+                updateCharCount();
+                if (descriptionField.value.length >= maxChars) {
+                    descriptionField.value = descriptionField.value.substring(0, maxChars); // Prevent exceeding the limit
+                }
+            });
+
+
             // Listen for changes on all form inputs
             document.querySelectorAll('#categoryForm input, #categoryForm select, #categoryForm textarea').forEach(element => {
                 element.addEventListener('change', function() {

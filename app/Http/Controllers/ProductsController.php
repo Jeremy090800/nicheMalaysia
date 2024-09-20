@@ -25,11 +25,12 @@ class ProductsController extends Controller
         // Validate and process the request data for products
         try {
             $data = $request->validate([
-                'category_type' => 'required|exists:categories,category_type',
+                'category_prefix' => 'required|exists:categories,category_prefix',
                 'serial_id' => [
                     'required',
                     Rule::unique('products'),
                 ],
+                
                 'ferrule' => 'required|numeric|between:0,99.9', 
                 'length' => 'required|numeric|between:0,99.9',
                 'weight' => 'required|numeric|between:0,99.9',
@@ -49,8 +50,8 @@ class ProductsController extends Controller
 
         // Save the product 
         $product = Products::create([
+            'category_prefix' => $data['category_prefix'],
             'serial_id' => $data['serial_id'],
-            'category_type' => $data['category_type'],
             'ferrule' => $data['ferrule'],
             'length' => $data['length'],
             'weight' => $data['weight'],
@@ -90,24 +91,36 @@ class ProductsController extends Controller
 
     // Buyer
     //search function (search product)
-    public function search(Request $request){
-
+    public function search(Request $request)
+    {
+        $categoryType = $request->input('category_prefix');
         $serialId = $request->input('serial_id');
-
-        //Load the category relationship along with the images
-        $product = Products::with(['images', 'categories'])->where('serial_id', $serialId)->first();
-
-        return view('Buyer.BuyerSearchProducts',[
+    
+        // Load the category relationship along with the images
+        $product = Products::with(['images', 'categories'])
+            ->where('serial_id', $serialId)
+            ->whereHas('categories', function ($query) use ($categoryType) {
+                $query->where('category_prefix', $categoryType);
+            })
+            ->first();
+    
+        return view('Buyer.BuyerSearchProducts', [
             'product' => $product,
-            'searchPerformed' => true
+            'searchPerformed' => true,
+            'categoryType' => $categoryType,
+            'serialId' => $serialId
         ]);
-
     }
+
+
+
+
 
     public function fetch_categories(){
 
         $categories = Categories::all(); // Fetch all categories
         return view('Seller.AddProducts', compact('categories'));
     }
+
 
 }

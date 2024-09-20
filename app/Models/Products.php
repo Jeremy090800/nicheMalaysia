@@ -14,7 +14,7 @@ class Products extends Model
     //Define the fillable fields for mass assignment
     protected $fillable = [
     
-        'category_type',
+        'category_prefix',
         'serial_id',
         'ferrule',
         'length',
@@ -31,7 +31,7 @@ class Products extends Model
 
     //connection to categories_table
     public function categories(){
-        return $this->belongsTo(Categories::class, 'category_type', 'category_type');
+        return $this->belongsTo(Categories::class, 'category_prefix', 'category_prefix');
     }
 
 }

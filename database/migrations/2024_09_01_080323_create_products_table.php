@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('serial_id')->unique();
 
             //category type (specify the series of the cue)
-            $table->char('category_type', 6);
+            $table->char('category_prefix', 6);
 
             //ferrule of the cue
             $table->string('ferrule');
