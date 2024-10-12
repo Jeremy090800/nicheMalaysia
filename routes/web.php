@@ -55,3 +55,6 @@ Route::get('/Buyer/BuyerSearchProducts/handle_search_products_function', [Produc
 //CATEGORY ADD
 Route::post('Seller/UpdateCategories/{category_prefix}', [CategoriesController::class, 'update']);
 
+Route::delete('Seller/DeleteCategory/{category_prefix}', [CategoriesController::class, 'delete']);
+
+

@@ -117,12 +117,24 @@
 
                                     <!--NEWLY ADDED-->
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <button 
-                                            class="bg-blue-500 text-white px-4 py-2 rounded-lg edit-button" 
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg edit-button" 
                                             data-prefix="{{ $category->category_prefix }}" 
                                             data-name="{{ $category->category_name }}" 
                                             data-description="{{ $category->category_description }}"
-                                            onclick="openEditPopup(this)">Edit</button>
+                                            onclick="openEditPopup(this)">
+                                            Edit
+                                        </button>
+
+                                        <form action="DeleteCategory/{{$category->category_prefix}}" method="POST" style="display: inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="bg-red-500 text-white px-4 py-2 rounded-lg"
+                                                onclick="return confirm('Are you sure you want to delete this category?');"
+                                                type="submit">
+                                                    Delete
+                                            </button>
+
+                                        </form>
                                     </td>
                                     
 

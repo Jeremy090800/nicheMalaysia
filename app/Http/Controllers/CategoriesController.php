@@ -94,6 +94,21 @@ class CategoriesController extends Controller
         return redirect()->back()->withErrors('Category not found');
     }
     
+    //NEWLY ADDED
+    //delete function
+    public function delete($category_prefix)
+    {
+        // Find the category by the prefix and delete it
+        $category = Categories::where('category_prefix', $category_prefix)->firstOrFail();
+    
+        // You may want to check for related data before deletion
+        // For example, ensure no products are linked to this category.
+    
+        $category->delete();
+    
+        // Redirect back to the categories list with a success message
+        return redirect()->back()->with('success', 'Category deleted successfully!');
+    }
     
 
 
