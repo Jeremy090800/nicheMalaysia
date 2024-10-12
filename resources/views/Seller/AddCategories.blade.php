@@ -116,25 +116,25 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 description-cell">{{ $category->category_description }}</td>
 
                                     <!--NEWLY ADDED-->
+                                    <!--EDIT BUTTON-->
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg edit-button" 
                                             data-prefix="{{ $category->category_prefix }}" 
                                             data-name="{{ $category->category_name }}" 
                                             data-description="{{ $category->category_description }}"
                                             onclick="openEditPopup(this)">
-                                            Edit
+                                                Edit
                                         </button>
 
-                                        <form action="DeleteCategory/{{$category->category_prefix}}" method="POST" style="display: inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="bg-red-500 text-white px-4 py-2 rounded-lg"
-                                                onclick="return confirm('Are you sure you want to delete this category?');"
-                                                type="submit">
-                                                    Delete
-                                            </button>
+                                    <!--NEWLY ADDED-->
+                                    <!--DELETE BUTTON-->
+                                    <button 
+                                        type="button" 
+                                        class="bg-red-500 text-white px-4 py-2 rounded-lg"
+                                        onclick="openDeletePopup('{{ $category->category_prefix }}')">
+                                            Delete
+                                    </button>
 
-                                        </form>
                                     </td>
                                     
 
@@ -165,7 +165,12 @@
                         </div>
                         <div>
                             <label for="editCategoryDescription" class="block text-gray-700 text-lg mb-2">Category Description:</label>
-                            <textarea name="category_description" id="editCategoryDescription" required class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg h-32"></textarea>
+                                <!-- Edit Form -->
+                                <textarea id="editCategoryDescription" name="category_description" maxlength="16383" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-40"></textarea>
+                                <div class="mt-2 text-gray-600" id="editCharCount">
+                                    Maximum characters: 16,383 | Used: 0
+                                </div>
+
                         </div>
                         <div class="flex justify-between pt-4">
                             <button type="button" onclick="closeEditPopup()" class="bg-red-500 text-white px-6 py-3 rounded-lg text-lg">Cancel</button>
@@ -175,9 +180,18 @@
                 </div>
             </div>
 
-            
-
-
+            <!--MEWLY ADDED-->
+            <!-- POP UP FORM FOR DELETE CATEGORY -->
+            <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-lg font-bold mb-4">Are you sure you want to delete this category?</h2>
+                    <p>This action cannot be undone.</p>
+                    <div class="flex justify-between mt-4">
+                        <button type="button" onclick="closeDeletePopup()" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Cancel</button>
+                        <button type="button" id="confirmDeleteButton" class="bg-red-500 text-white px-4 py-2 rounded-lg">Delete</button>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -187,24 +201,6 @@
             let formChanged = false;
             let isFormSubmitting = false;
         
-
-            // Character count functionality
-            const descriptionField = document.getElementById('category_description');
-            const charCountDisplay = document.getElementById('charCount');
-            const maxChars = 16383;
-
-            function updateCharCount() {
-                const charCount = descriptionField.value.length;
-                charCountDisplay.textContent = `Maximum characters: ${maxChars} | Used: ${charCount}`;
-            }
-
-            descriptionField.addEventListener('input', function() {
-                updateCharCount();
-                if (descriptionField.value.length >= maxChars) {
-                    descriptionField.value = descriptionField.value.substring(0, maxChars); // Prevent exceeding the limit
-                }
-            });
-
             // Handle back button click
             document.getElementById('backButton').addEventListener('click', function(event) {
             if (formChanged) {
@@ -232,25 +228,36 @@
             });
 
 
-            //NEWLY ADDED
-            //FUNCTION TO OPEN THE EDITPOPUP
-            // document.querySelectorAll('.editButton').forEach(button => {
-            //     button.addEventListener('click', function() {
-            //         const row = this.closest('tr');
-            //         const categoryPrefix = row.querySelector('td:nth-child(1)').innerText;
-            //         const categoryName = row.querySelector('td:nth-child(2)').innerText;
-            //         const categoryDescription = row.querySelector('td:nth-child(3)').innerText;
+            // Character count functionality for addForm
+            const descriptionField = document.getElementById('category_description');
+            const charCountDisplay = document.getElementById('charCount');
+            const maxChars = 16383;
+            function updateCharCount() {
+                const charCount = descriptionField.value.length;
+                charCountDisplay.textContent = `Maximum characters: ${maxChars} | Used: ${charCount}`;
+            }
+            descriptionField.addEventListener('input', function() {
+                updateCharCount();
+                if (descriptionField.value.length >= maxChars) {
+                    descriptionField.value = descriptionField.value.substring(0, maxChars); // Prevent exceeding the limit
+                }
+            });
 
-            //         // Set values in the popup form
-            //         document.getElementById('editCategoryPrefix').value = categoryPrefix;
-            //         document.getElementById('editCategoryName').value = categoryName;
-            //         document.getElementById('editCategoryDescription').value = categoryDescription;
 
-            //         // Show the popup
-            //         // You can use a library or create a custom modal
-            //     });
-            // });
-
+            // Character count functionality for Edit Form
+            const editDescriptionField = document.getElementById('editCategoryDescription');
+            const editCharCountDisplay = document.getElementById('editCharCount');
+            const maxEditChars = 16383;
+            function updateEditCharCount() {
+                const charCount = editDescriptionField.value.length;
+                editCharCountDisplay.textContent = `Maximum characters: ${maxEditChars} | Used: ${charCount}`;
+            }
+            editDescriptionField.addEventListener('input', function() {
+                updateEditCharCount();
+                if (editDescriptionField.value.length >= maxEditChars) {
+                    editDescriptionField.value = editDescriptionField.value.substring(0, maxEditChars); // Prevent exceeding the limit
+                }
+            });
 
             //open the editpopup
             function openEditPopup(button) {
@@ -266,13 +273,14 @@
 
                 // Update form action to include category prefix in the URL
                 const form = document.getElementById('editCategoryForm');
-                console.log(form.action);
                 if (form) {
                     form.action = `UpdateCategories/${categoryPrefix}`;
-                    console.log(form.action);
                 } else {
                     console.error("Form element not found");
                 }
+
+                //Update the character count when the popup opens
+                updateEditCharCount();
 
                 // Show the popup/modal (implement the logic for showing your modal here)
                 document.getElementById('editModal').classList.remove('hidden');
@@ -284,6 +292,47 @@
             function closeEditPopup(){
                 document.getElementById('editModal').classList.add('hidden');
             }
+
+
+            // Variable to store the current category prefix for deletion
+            let categoryPrefixToDelete = null;
+
+            function openDeletePopup(categoryPrefix) {
+                categoryPrefixToDelete = categoryPrefix; // Store the category prefix
+                document.getElementById('deleteModal').classList.remove('hidden'); // Show the modal
+            }
+
+            function closeDeletePopup() {
+                document.getElementById('deleteModal').classList.add('hidden'); // Hide the modal
+                categoryPrefixToDelete = null; // Reset the stored prefix
+            }
+
+            document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+                if (categoryPrefixToDelete) {
+                    // Create and submit a form for the deletion
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `DeleteCategory/${categoryPrefixToDelete}`;
+
+                    // Add CSRF token
+                    const csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = '_token';
+                    csrfInput.value = '{{ csrf_token() }}'; // Laravel's CSRF token
+
+                    // Add DELETE method override
+                    const methodInput = document.createElement('input');
+                    methodInput.type = 'hidden';
+                    methodInput.name = '_method';
+                    methodInput.value = 'DELETE';
+
+                    // Append inputs and submit form
+                    form.appendChild(csrfInput);
+                    form.appendChild(methodInput);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
 
             
         </script>
