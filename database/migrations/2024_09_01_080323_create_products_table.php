@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             
             //serieal_id of the product
-            $table->string('serial_id')->unique();
+            $table->string('serial_id');
 
             //category type (specify the series of the cue)
             $table->char('category_prefix', 6);
@@ -36,8 +36,18 @@ return new class extends Migration
             //balancing point (5 digits, 1 decimal, nullable)
             $table->decimal('balancing', 5, 1)->nullable();
 
+            //product_description
+            $table->text('description')->nullable();
+
+            //NEWLY CREATED
+            //owned_by
+            $table->text('owned_by')->nullable();
+
             //created_at and updated_at
             $table->timestamps();
+
+            // Ensure that serial_id and category_prefix combination is unique
+            $table->unique(['serial_id', 'category_prefix']);
 
         });
 

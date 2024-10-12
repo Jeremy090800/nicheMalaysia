@@ -43,7 +43,7 @@
                     <div class="mb-6">
                         <div class="flex items-center justify-between mb-2">
                             <label class="text-gray-700 text-sm font-bold" for="category">
-                                Category:
+                                Category: <span class="text-red-500">*</span>
                             </label>
 
                             <a href="{{ url('/Seller/AddCategories') }}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded transition duration-300 ease-in-out">
@@ -68,10 +68,10 @@
                         @endif
                     </div>
 
-                    <!--newly added-->
+                    <!--Serial_id of the product-->
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="serial_id">
-                            Serial ID (Update):
+                            Serial ID: <span class="text-red-500">*</span>
                         </label>
                         <div class="flex items-center">
                             <span id="serialPrefix" class="bg-gray-200 text-gray-700 py-2 px-3 rounded-l"></span>
@@ -79,19 +79,10 @@
                         </div>
                     </div>
 
-
-
-                    {{-- <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="serial_id">
-                            Serial ID:
-                        </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="serial_id" name="serial_id" required>
-                    </div> --}}
-                    
                     <!-- Ferrule of the products -->
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="ferrule">
-                            Ferrule (mm):
+                            Ferrule (mm): <span class="text-red-500">*</span>
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" id="ferrule" name="ferrule" min="0" required>
                     </div>
@@ -99,7 +90,7 @@
                     <!-- Length of the products -->
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="length">
-                            Length (cm):
+                            Length (cm): <span class="text-red-500">*</span>
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" id="length" name="length" required>
                     </div>
@@ -107,7 +98,7 @@
                     <!-- Weight of the products -->
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="weight">
-                            Weight (oz):
+                            Weight (oz): <span class="text-red-500">*</span>
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" id="weight" name="weight" required>
                     </div>
@@ -115,7 +106,7 @@
                     <!-- Butt Length of the products -->
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="butt">
-                            Butt Length (cm):
+                            Butt Length (cm): <span class="text-red-500">*</span>
                         </label>
                         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" id="butt" name="butt" required>
                     </div>
@@ -123,13 +114,41 @@
                     <!-- Balancing of the products -->
                     <div class="mb-6">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="balancing">
-                            Balancing Point (cm):
+                            Balancing Point (cm): <span class="text-red-500">*</span>
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" id="balancing" name="balancing" required>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" id="balancing" name="balancing" required >
                     </div>
 
+                    <!-- Products Description -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                            Product Description:
+                        </label>
+                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-40" id="description" name="description" maxlength="16383"></textarea>
+                        <div class="mt-2 text-gray-600" id="charCount">
+                            Maximum characters: 16,383 | Used: 0
+                        </div>
+                    </div>
+
+
+                    <!-- owned by -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="owned_by">
+                            Owned By: (Upcoming Update) 
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100 cursor-not-allowed" type="text" id="owned_by" name="owned_by" readonly>
+                    </div>
+
+                    <!--working code-->
+                    {{-- <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="owned_by">
+                            Owned by: 
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="owned_by" name="owned_by" required>
+                    </div> --}}
+
+
                     <!-- Image Upload Section -->
-                    
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="imageInput">
                             Upload Images:
@@ -154,6 +173,7 @@
             let selectedFiles = [];
             //track whether the form has been modified
             let formChanged = false;
+            let isSubmitting = false; 
 
             // Listen for changes on all form inputs
             document.querySelectorAll('#productForm input, #productForm select, #productForm textarea').forEach(element => {
@@ -165,21 +185,43 @@
                 });
             });
 
-            // Handle back button click
-            document.getElementById('backButton').addEventListener('click', function(event) {
-                if (formChanged) {
-                    event.preventDefault();
-                    if (confirm('Your entered data will be cleared and not saved. Are you sure you want to go back?')) {
-                        window.location.href = this.href;
-                    }
-                }
+            // Handle form submission
+            document.getElementById('productForm').addEventListener('submit', function() {
+                isSubmitting = true;
             });
+
+            // // Handle back button click
+            // document.getElementById('backButton').addEventListener('click', function(event) {
+            //     if (formChanged) {
+            //         event.preventDefault();
+            //         if (confirm('Your entered data will be cleared and not saved. Are you sure you want to go back?')) {
+            //             window.location.href = this.href;
+            //         }
+            //     }
+            // });
 
             // Handle browser back button and page unload
             window.addEventListener('beforeunload', function (e) {
-                if (formChanged) {
+                if (formChanged && !isSubmitting) {
                     e.preventDefault();
                     e.returnValue = '';
+                }
+            });
+
+            // Character count functionality
+            const descriptionField = document.getElementById('description');
+            const charCountDisplay = document.getElementById('charCount');
+            const maxChars = 16383;
+
+            function updateCharCount() {
+                const charCount = descriptionField.value.length;
+                charCountDisplay.textContent = `Maximum characters: ${maxChars} | Used: ${charCount}`;
+            }
+
+            descriptionField.addEventListener('input', function() {
+                updateCharCount();
+                if (descriptionField.value.length >= maxChars) {
+                    descriptionField.value = descriptionField.value.substring(0, maxChars); // Prevent exceeding the limit
                 }
             });
 

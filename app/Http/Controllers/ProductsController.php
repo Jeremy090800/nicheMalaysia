@@ -28,24 +28,33 @@ class ProductsController extends Controller
                 'category_prefix' => 'required|exists:categories,category_prefix',
                 'serial_id' => [
                     'required',
-                    Rule::unique('products'),
+                    Rule::unique('products')->where(function ($query) use ($request) {
+                        return $query->where('category_prefix', $request->category_prefix);
+                    }),
                 ],
-                
                 'ferrule' => 'required|numeric|between:0,99.9', 
                 'length' => 'required|numeric|between:0,99.9',
                 'weight' => 'required|numeric|between:0,99.9',
                 'butt' => 'required|numeric|between:0,99.9',
                 'balancing' => 'required|numeric|between:0,99.9',
+
+                'description' => 'nullable|string',
+                'owned_by' => 'nullable|string',
+                
+
+
                 'images' => 'required|array|min:1|max:6',
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             if ($e->validator->errors()->has('serial_id')) {
                 return redirect()->back()
-                    ->withErrors(['serial_id' => 'This Serial ID already exists.'])
+                    ->withErrors(['serial_id' => 'This Serial ID already exists with the given Category Prefix.'])
                     ->withInput();
             }
-            throw $e;
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput(); 
         }
 
         // Save the product 
@@ -57,6 +66,10 @@ class ProductsController extends Controller
             'weight' => $data['weight'],
             'butt' => $data['butt'],
             'balancing' => $data['balancing'],
+            'description' => $data['description'],
+            'owned_by' => $data['owned_by'],
+            
+            
         ]);
 
         // handle the image

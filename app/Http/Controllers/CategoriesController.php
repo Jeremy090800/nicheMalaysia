@@ -70,6 +70,47 @@ class CategoriesController extends Controller
         return view('Seller.AddCategories',compact('categories'));
     }
 
+    //NEWLY ADDED
+    //update function
+    public function update(Request $request, $category_prefix)
+    {
+        // Validate the input
+        $request->validate([
+            'category_name' => 'required',
+            'category_description' => 'required',
+        ]);
+    
+        // Find the category by prefix and update it
+        $category = Categories::where('category_prefix', $category_prefix)->first();
+    
+        if ($category) {
+            $category->update([
+                'category_name' => $request->input('category_name'),
+                'category_description' => $request->input('category_description'),
+            ]);
+            return redirect()->back()->with('success', 'Category updated successfully');
+        }
+    
+        return redirect()->back()->withErrors('Category not found');
+    }
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     //functions for store and fetch of categories_sellerdashboard
 
     public function store_SellerDashboard(Request $request){
@@ -123,4 +164,14 @@ class CategoriesController extends Controller
 
         return view('Seller.AddCategories_SellerDashboard',compact('categories'));
     }
+
+
+
+    
+
+
+
+
+
+
 }

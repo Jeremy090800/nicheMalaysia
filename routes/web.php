@@ -48,3 +48,10 @@ Route::get('/Buyer/BuyerSearchProducts', function () {
     return view('Buyer.BuyerSearchProducts');
 });
 Route::get('/Buyer/BuyerSearchProducts/handle_search_products_function', [ProductsController::class, 'search']);
+
+
+
+//-----------------TESTING----------------------
+//CATEGORY ADD
+Route::post('Seller/UpdateCategories/{category_prefix}', [CategoriesController::class, 'update']);
+

@@ -6,6 +6,18 @@
         <title>Create New Category</title>
         <link rel="icon" href="{{ asset('images/niche_logo.jpg') }}" type="image/jpeg">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+        <style>
+            /* Ensures text wraps correctly and adds a scrollbar for overflow */
+            .description-cell {
+                max-width: 2000px; /* Set a maximum width as per your design */
+                max-height: 100px; /* Set a maximum height */
+                overflow-y: auto; /* Adds a vertical scrollbar if content is too long */
+                word-wrap: break-word; /* Wraps long words to prevent overflow */
+                white-space: normal; /* Ensures text wraps within the cell */
+            }
+        </style>
+        
     </head>
 
     <body class="bg-gray-100">
@@ -74,6 +86,9 @@
                 </div>
             </form>
 
+
+
+
             <!-- Existing Categories -->
             <div class="max-w-xl mx-auto mt-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <h2 class="text-2xl font-bold mb-4 text-center">Existing Categories</h2>
@@ -87,6 +102,10 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category Type</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category Name</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                
+                                <!--NEWLY ADDED-->
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -94,14 +113,63 @@
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->category_prefix }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->category_name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->category_description }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 description-cell">{{ $category->category_description }}</td>
+
+                                    <!--NEWLY ADDED-->
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <button 
+                                            class="bg-blue-500 text-white px-4 py-2 rounded-lg edit-button" 
+                                            data-prefix="{{ $category->category_prefix }}" 
+                                            data-name="{{ $category->category_name }}" 
+                                            data-description="{{ $category->category_description }}"
+                                            onclick="openEditPopup(this)">Edit</button>
+                                    </td>
+                                    
+
+
+                                    
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @endif
             </div>
+
+
+
+
+            <!--MEWLY ADDED-->
+            <!-- POP UP FORM FOR EDIT CATEGORY -->
+            <div id="editModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+                    <h2 class="text-2xl font-bold mb-6">Edit Category Detail</h2>
+                    
+                    <form id="editCategoryForm" method="POST" class="space-y-6">
+                        @csrf
+                        <input type="hidden" name="category_prefix" id="editCategoryPrefix" value="">
+                        <div>
+                            <label for="editCategoryName" class="block text-gray-700 text-lg mb-2">Category Name:</label>
+                            <input type="text" name="category_name" id="editCategoryName" required class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
+                        </div>
+                        <div>
+                            <label for="editCategoryDescription" class="block text-gray-700 text-lg mb-2">Category Description:</label>
+                            <textarea name="category_description" id="editCategoryDescription" required class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg h-32"></textarea>
+                        </div>
+                        <div class="flex justify-between pt-4">
+                            <button type="button" onclick="closeEditPopup()" class="bg-red-500 text-white px-6 py-3 rounded-lg text-lg">Cancel</button>
+                            <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            
+
+
+
         </div>
+
+
 
         <script>
             let formChanged = false;
@@ -125,9 +193,6 @@
                 }
             });
 
-
-
-        
             // Handle back button click
             document.getElementById('backButton').addEventListener('click', function(event) {
             if (formChanged) {
@@ -153,6 +218,62 @@
                     event.preventDefault(); // Prevent form submission if user cancels
                 }
             });
+
+
+            //NEWLY ADDED
+            //FUNCTION TO OPEN THE EDITPOPUP
+            // document.querySelectorAll('.editButton').forEach(button => {
+            //     button.addEventListener('click', function() {
+            //         const row = this.closest('tr');
+            //         const categoryPrefix = row.querySelector('td:nth-child(1)').innerText;
+            //         const categoryName = row.querySelector('td:nth-child(2)').innerText;
+            //         const categoryDescription = row.querySelector('td:nth-child(3)').innerText;
+
+            //         // Set values in the popup form
+            //         document.getElementById('editCategoryPrefix').value = categoryPrefix;
+            //         document.getElementById('editCategoryName').value = categoryName;
+            //         document.getElementById('editCategoryDescription').value = categoryDescription;
+
+            //         // Show the popup
+            //         // You can use a library or create a custom modal
+            //     });
+            // });
+
+
+            //open the editpopup
+            function openEditPopup(button) {
+                // Retrieve data from button attributes
+                const categoryPrefix = button.getAttribute('data-prefix');
+                const categoryName = button.getAttribute('data-name');
+                const categoryDescription = button.getAttribute('data-description');
+
+                // Set values in the popup form
+                document.getElementById('editCategoryPrefix').value = categoryPrefix;
+                document.getElementById('editCategoryName').value = categoryName;
+                document.getElementById('editCategoryDescription').value = categoryDescription;
+
+                // Update form action to include category prefix in the URL
+                const form = document.getElementById('editCategoryForm');
+                console.log(form.action);
+                if (form) {
+                    form.action = `UpdateCategories/${categoryPrefix}`;
+                    console.log(form.action);
+                } else {
+                    console.error("Form element not found");
+                }
+
+                // Show the popup/modal (implement the logic for showing your modal here)
+                document.getElementById('editModal').classList.remove('hidden');
+                // For example, if you are using a modal from a library, you could do something like:
+                // $('#yourModalId').modal('show');
+            }
+
+            //close the editpopup
+            function closeEditPopup(){
+                document.getElementById('editModal').classList.add('hidden');
+            }
+
+            
         </script>
         
     </body>

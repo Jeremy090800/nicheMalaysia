@@ -7,25 +7,57 @@
         <link rel="icon" href="{{ asset('images/niche_logo.jpg') }}" type="image/jpeg">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+        <!--added for the body background here-->
         <style>
-            body {
-                padding-bottom: 0.75rem; /* Add padding to the bottom of the body */
+            html, body {
+                height: 100%; /* Ensure the html and body take full height */
+                overflow: hidden; /* Prevent scrolling */
+            }
+            .bg-image {
+                padding-bottom: 0.75rem;
+                background-image: url('{{ asset("images/Niche_F1_logo.jpg") }}');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
             }
             .content-wrapper {
-                min-height: calc(100vh - 0.75rem); /* Subtract the height of the nav bar */
+                min-height: calc(100vh - 0.75rem);
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+            header {
+                background-color: white; /* Ensure it's solid white */
+            }
+            .bg-white {
+                background-color: rgba(255, 255, 255, 0.9) !important;
+            }
+            .search-container{
+                padding-top: 1rem;
+                padding-bottom: 2rem;
             }
         </style>
     </head>
     
     <body class="bg-gray-100 min-h-screen flex flex-col">
         <!-- Header with the Product Search title -->
-        <header class="bg-white shadow-md p-4 flex justify-center items-center">
+        <!-- <header class="shadow-md p-4 flex justify-center items-center">
             <h1 class="text-2xl font-bold text-purple-600">NicheCue Malaysia</h1>
+        </header> -->
+
+        <header class="shadow-md p-3 flex justify-center items-center bg-black">
+            <!-- Small Logo beside the title using asset -->
+            <img src="{{ asset('images/Niche_Cues_Thailand.jpg') }}" alt="NicheCue Logo" class="h-12 w-12 mr-2"> <!-- Adjust the size if needed -->
+            <h1 class="text-2xl font-bold text-white">Niche Cues Malaysia Factory</h1>
+
+            <!--will be removed anytime, preserved for testing purpose-->
+            
+
+
         </header>
 
-        <div class="content-wrapper flex-grow flex flex-col">
-            <main class="flex-grow flex flex-col items-center justify-center px-4 py-8">
-                <div class="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full mb-16"> <!-- Added mb-16 for bottom margin -->
+        <div class="content-wrapper flex-grow flex flex-col bg-image">
+            <main class="flex-grow flex flex-col items-center justify-start px-4 py-8">
+                <div class="search-container bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full mb-16"> <!-- Added mb-16 for bottom margin -->
                     <!-- Search Product Title -->
                     <h2 class="text-2xl font-bold mb-4 text-center text-gray-700">Search Product</h2>
 
@@ -35,7 +67,7 @@
                             <input type="text" name="search_input" id="searchInput" placeholder="Enter Category Type-Serial ID" class="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
                             <input type="hidden" name="category_prefix" id="categoryType">
                             <input type="hidden" name="serial_id" id="serialId">
-                            <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-r-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600">Search</button>
+                            <button type="submit" class="bg-black text-white px-6 py-2 rounded-r-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600">Search</button>
                         </div>
                     </form>
 
@@ -79,13 +111,13 @@
         </div>
 
         <!-- Bottom Navigation Bar -->
-        <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg">
+        <nav class="fixed bottom-0 left-0 right-0 bg-black shadow-lg">
             <div class="flex justify-around items-center h-16">
-                <a href="{{ url('/') }}" class="flex flex-col items-center text-purple-600 hover:text-purple-800">
+                <a href="{{ url('/') }}" class="flex flex-col items-center text-white hover:text-gray-500">
                     <i class="fas fa-home text-xl mb-1"></i>
-                    <span class="text-xs">About Us</span>
+                    <span class="text-xs">Home</span>
                 </a>
-                <a href="{{ url('/Buyer/BuyerSearchProducts') }}" class="flex flex-col items-center text-purple-600 hover:text-purple-800">
+                <a href="{{ url('/Buyer/BuyerSearchProducts') }}" class="flex flex-col items-center text-white hover:text-gray-500">
                     <i class="fas fa-search text-xl mb-1"></i>
                     <span class="text-xs">Search</span>
                 </a>

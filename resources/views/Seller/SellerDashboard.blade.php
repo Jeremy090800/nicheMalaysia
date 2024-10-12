@@ -60,6 +60,9 @@
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weight(mm)</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Butt(mm)</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balancing</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owned By</th>
+                                    
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Images</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 </tr>
@@ -78,6 +81,8 @@
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->weight }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->butt }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->balancing }}</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->description }}</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->owned_by }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap">
                                             <!-- Display images (unchanged) -->
                                             @if($product->images)
