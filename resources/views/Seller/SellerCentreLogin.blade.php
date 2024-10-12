@@ -8,13 +8,17 @@
         <link rel="icon" href="{{ asset('images/niche_logo.jpg') }}" type="image/jpeg">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
+
+
     </head>
 
 
     <body class="bg-gray-100 min-h-screen flex flex-col">
-
-        <header class="bg-white shadow-md p-4 flex justify-center items-center">
-            <h1 class="text-2xl font-bold text-purple-600">NicheCue Malaysia</h1>
+        <header class="shadow-md p-3 flex justify-center items-center bg-black">
+            <img src="{{ asset('images/Niche_Cues_Thailand.jpg') }}" alt="NicheCue Logo" class="h-12 w-12 mr-2"> 
+            <h1 class="text-2xl font-bold text-white">Niche Cues Malaysia Factory</h1>
         </header>
 
         <header class="p-4">
