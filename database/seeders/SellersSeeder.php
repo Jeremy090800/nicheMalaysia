@@ -18,8 +18,13 @@ class SellersSeeder extends Seeder
 
         //Create seller only if it doesn't exist
         Sellers::create([
-            'seller_id' => '123',
-            'password' => '123',
+            'seller_id' => 'admin',
+            'password' => 'admin',
+        ]);
+
+        Sellers::create([
+            'seller_id' => 'Niche147',
+            'password' => '7147',
         ]);
 
     }

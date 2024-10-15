@@ -13,7 +13,7 @@ class Sellers extends Model
     public $timestamps = false;
 
     //Define the fillable fields
-    protected $filalble = [
+    protected $fillable = [
         'seller_id',
         'password',
     ];
