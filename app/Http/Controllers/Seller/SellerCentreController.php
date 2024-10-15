@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Hash;
 
 // Import Images Model
 use App\Models\Images;
 // Import Products Model
 use App\Models\Products;
+//NEWLY ADDED
+//Import the Sellers Model
+use App\Models\Sellers;
 
 class SellerCentreController extends Controller
 {
@@ -22,20 +24,20 @@ class SellerCentreController extends Controller
             'seller_id' => 'required',
             'password' => 'required',
         ]);
+
+        //Fetch the seller record from the database
+        $seller = Sellers::where('seller_id', $request->seller_id)->first();
+
     
-        $SELLER_ID = env('SELLER_ID');
-        $SELLER_PASSWORD = env('SELLER_PASSWORD');
-    
-        if ($request->seller_id === $SELLER_ID && Hash::check($request->password, Hash::make($SELLER_PASSWORD))) {
+        // Check if seller exists and if the password matches
+        if ($seller && Hash::check($request->password, $seller->password)) {
             // Authentication passed...
             session(['seller_logged_in' => true]);
 
-        
-            // Redirect to a specific page
+            // Redirect to a specific page (Seller Dashboard)
             return redirect('/Seller/SellerDashboard');
-        } 
-               
-    
+        }
+
         return back()->withErrors([
             'login_status' => 'Seller ID or password mismatch.',
         ]);
@@ -53,5 +55,10 @@ class SellerCentreController extends Controller
         // Redirect to login page or another page
         return redirect('/')->with('success', 'You have been logged out successfully.');
     }
+
+
+
+
+
 
 }
