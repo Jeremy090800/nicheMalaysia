@@ -27,5 +27,13 @@ class SellersSeeder extends Seeder
             'password' => '7147',
         ]);
 
+        
+        Sellers::create([
+            'seller_id' => '123',
+            'password' => '123',
+        ]);
+
+
+
     }
 }
