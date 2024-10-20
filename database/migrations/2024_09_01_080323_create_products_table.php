@@ -33,8 +33,8 @@ return new class extends Migration
             //butt of the cue
             $table->string('butt');
 
-            //balancing point (5 digits, 1 decimal, nullable)
-            $table->decimal('balancing', 5, 1)->nullable();
+            //balancing point (5 digits, 1 decimal)
+            $table->decimal('balancing', 5, 1);
 
             //product_description
             $table->text('description')->nullable();
