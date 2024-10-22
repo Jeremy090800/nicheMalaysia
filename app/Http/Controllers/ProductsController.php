@@ -156,7 +156,7 @@ class ProductsController extends Controller
 
 
 
-    public function fetch_categories(){
+    public function fetch_series(){
 
         //$categories = Categories::all(); // Fetch all categories
         $series = Series::all();
