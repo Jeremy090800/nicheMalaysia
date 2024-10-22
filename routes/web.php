@@ -34,6 +34,8 @@ Route::post('/Seller/SellerLogout', [SellerCentreController::class, 'logout']);
 
 //AddProducts
 Route::get('/Seller/AddProducts', [ProductsController::class, 'fetch_categories']);
+
+
 Route::post('Seller/AddProducts/handle_store_products_function', [ProductsController::class, 'store']);
 
 //AddCategories

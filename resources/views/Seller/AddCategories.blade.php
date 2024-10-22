@@ -287,13 +287,13 @@
                 // For example, if you are using a modal from a library, you could do something like:
                 // $('#yourModalId').modal('show');
             }
-
             //close the editpopup
             function closeEditPopup(){
                 document.getElementById('editModal').classList.add('hidden');
             }
 
 
+            
             // Variable to store the current category prefix for deletion
             let categoryPrefixToDelete = null;
 

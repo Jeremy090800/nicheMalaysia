@@ -23,7 +23,7 @@
         <main class="flex-grow flex flex-col items-center justify-center px-4 py-8">
 
             <div class="text-center max-w-2xl w-full mb-8">
-                <h2 class="text-4xl font-bold text-purple-600 mb-4">Welcome to Seller Centre</h2>
+                <h2 class="text-4xl font-bold text-black-600 mb-4">Welcome to Seller Centre</h2>
             </div>
             
             <div class="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full mb-8">
@@ -36,12 +36,18 @@
                         Create New Category
                     </a>
 
+                    <a href="{{ url('/Seller/AddSeries') }}" class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
+                        Create New Series
+                    </a>
+
+                    
+
                 </div>
             </div>
 
             <!-- Product Listing Section -->
             <div class="bg-white shadow-lg rounded-lg p-4 md:p-8 max-w-full w-full overflow-hidden relative">
-                <h3 class="text-2xl font-bold mb-6 text-center text-purple-600">Your Products</h3>
+                <h3 class="text-2xl font-bold mb-6 text-center text-black-600">Your Products</h3>
                 <button type="button" 
                     onclick="showBulkDeleteConfirmation()" 
                     class="absolute top-6 right-4 text-red-500 hover:text-red-700 transition duration-300 ease-in-out z-10">
@@ -59,6 +65,14 @@
                                     </th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serial ID</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+
+
+                                    
+                                    <!--TESTING PURPOSE-->
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Series Name</th>
+
+
+
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ferrule(mm)</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Length(mm)</th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weight(mm)</th>
@@ -79,6 +93,9 @@
                                         </td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_prefix }}-{{ $product->serial_id }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_name }}</td>
+
+                                        <!--TESTING PURPOSE-->
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->series->series_name }}</td>
 
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->ferrule }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->length }}</td>

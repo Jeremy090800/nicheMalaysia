@@ -19,7 +19,7 @@ class SeriesController extends Controller
     //store function for Series
     public function store(Request $request){
 
-        // Validate and process the request data for categories
+        // Validate and process the request data for series
         try {
             $data = $request->validate([
                 'series_name' => 'required|string|max:255|unique:series,series_name',
@@ -28,7 +28,7 @@ class SeriesController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             $errors = [];
         
-            // Check for category_prefix validation error
+            // Check for series_name validation error
             if ($e->validator->errors()->has('series_name')) {
                 $errors['series_name'] = 'This Series Name already exists.';
             }
@@ -46,7 +46,7 @@ class SeriesController extends Controller
 
         
 
-        // Save the category
+        // Save the series
         Series::create([
             'series_name' => $data['series_name'],
             'series_description' => $data['series_description'],
@@ -75,7 +75,7 @@ class SeriesController extends Controller
         $series->update($data);
 
         //return response()->json(['message' => 'Series updated successfully.']);
-        return redirect()->back()->with('success', 'Category updated successfully');
+        return redirect()->back()->with('success', 'Series updated successfully');
     }
 
     //NEWLY ADDED

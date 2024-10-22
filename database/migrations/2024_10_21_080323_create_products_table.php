@@ -21,6 +21,11 @@ return new class extends Migration
             //category type (specify the series of the cue)
             $table->char('category_prefix', 6);
 
+
+            // Add foreign key for series
+            $table->unsignedBigInteger('series_id');
+            $table->foreign('series_id')->references('series_id')->on('series')->onDelete('cascade');
+
             //ferrule of the cue
             $table->string('ferrule');
 
@@ -43,12 +48,10 @@ return new class extends Migration
             //owned_by
             $table->text('owned_by')->nullable();
 
+
+
             //created_at and updated_at
             $table->timestamps();
-
-            // Add foreign key for series
-            $table->unsignedBigInteger('series_id');
-            $table->foreign('series_id')->references('series_id')->on('series')->onDelete('cascade');
 
             // Ensure that serial_id and category_prefix combination is unique
             $table->unique(['serial_id', 'category_prefix']);

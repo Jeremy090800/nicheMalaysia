@@ -80,6 +80,35 @@
                         </div>
                     </div>
 
+                    <!-- Series Dropdown -->
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="text-gray-700 text-sm font-bold" for="series">
+                                Series: <span class="text-red-500">*</span>
+                            </label>
+
+                            <a href="{{ url('/Seller/AddSeries') }}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded transition duration-300 ease-in-out">
+                                New Series
+                            </a>
+                        </div>
+                        <div class="relative">
+                            <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="series" name="series_id" required>
+                                @forelse($series as $s)
+                                    <option value="{{ $s->series_id }}">{{ $s->series_name }}</option>
+                                @empty
+                                    <option value="" disabled>No series available</option>
+                                @endforelse
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                        @if($series->isEmpty())
+                            <p class="text-red-500 text-xs italic mt-2">No series created yet</p>
+                        @endif
+                    </div>
+
+
 
 
 

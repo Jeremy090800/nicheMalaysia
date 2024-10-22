@@ -20,18 +20,22 @@
 
     <body class="bg-gray-100">
 
+        <!--Header of the niche cue-->
         <header class="shadow-md p-3 flex justify-center items-center bg-black">
             <img src="{{ asset('images/Niche_Cues_Thailand.jpg') }}" alt="NicheCue Logo" class="h-12 w-12 mr-2"> 
             <h1 class="text-2xl font-bold text-white">Niche Cues Malaysia Factory</h1>
         </header>
 
-        
-
+        <!--Back Button-->
         <header class="p-4">
-            <a href="{{ url('/') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block" id="backButton">
+            <a href="{{ url('/Seller/AddProducts') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block" id="backButton">
                 &larr; Back
             </a>
         </header>
+
+
+
+
 
         <div class="container mx-auto px-4 py-8">
             @if ($errors->any())
@@ -118,7 +122,6 @@
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $s->series_name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 description-cell">{{ $s->series_description }}</td>
-
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg edit-button" 
                                             data-id="{{ $s->series_id }}" 
@@ -185,6 +188,62 @@
         </div>
 
         <script>
+            // Track form changes
+            let formChanged = false;
+            // Function to check if form has unsaved changes
+            function checkFormChanges() {
+                const form = document.getElementById('seriesForm');
+                const formElements = form.querySelectorAll('input, textarea');
+                
+                formElements.forEach(element => {
+                    element.addEventListener('input', () => {
+                        formChanged = true;
+                    });
+                });
+            }
+            // Handle page back button click
+            document.getElementById('backButton').addEventListener('click', function(event) {
+                if (formChanged) {
+                    event.preventDefault();
+                    if (confirm('Your entered data will be cleared and not saved. Are you sure you want to go back?')) {
+                        formChanged = false; // Reset the flag
+                        window.location.href = this.href;
+                    }
+                }
+            });
+            // Handle browser back button and page unload
+            window.addEventListener('beforeunload', function(event) {
+                if (formChanged) {
+                    // Modern browsers don't show custom messages, but we need to set this
+                    // to trigger the confirmation dialog
+                    event.preventDefault();
+                    event.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+                    return event.returnValue;
+                }
+            });
+            // Handle browser back button using History API
+            window.addEventListener('popstate', function(event) {
+                if (formChanged) {
+                    if (confirm('Your entered data will be cleared and not saved. Are you sure you want to go back?')) {
+                        formChanged = false;
+                        history.back();
+                    } else {
+                        // Prevent going back by pushing a new state
+                        history.pushState(null, '', window.location.href);
+                    }
+                }
+            });
+            // Initialize form change tracking when the page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                checkFormChanges();
+                // Push an initial state to enable popstate handling
+                history.pushState(null, '', window.location.href);
+            });
+
+
+
+
+
             // Character count functionality for AddSeries form
             const descriptionField = document.getElementById('series_description');
             const charCountDisplay = document.getElementById('charCount');
@@ -199,6 +258,7 @@
                     descriptionField.value = descriptionField.value.substring(0, maxChars); // Prevent exceeding the limit
                 }
             });
+
 
 
 
@@ -267,11 +327,6 @@
                 document.getElementById('deleteModal').classList.add('hidden'); // Hide the modal
                 seriesIdToDelete = null; // Reset the stored prefix
             }
-
-
-
-
-
             document.getElementById('confirmDeleteButton').addEventListener('click', function() {
                 
                 if (seriesIdToDelete) {
@@ -301,12 +356,6 @@
                     form.submit();
                 }
             });
-
-
-
-
-
-
         </script>
     </body>
 </html>

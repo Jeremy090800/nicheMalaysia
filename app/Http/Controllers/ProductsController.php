@@ -15,6 +15,9 @@ use App\Models\Images;
 use App\Models\Products;
 //import Categories Model
 use App\Models\Categories;
+//TESTING PURPOSE
+//import Series Model
+use App\Models\Series;
 
 class ProductsController extends Controller
 {
@@ -32,6 +35,11 @@ class ProductsController extends Controller
                         return $query->where('category_prefix', $request->category_prefix);
                     }),
                 ],
+
+                //TESTING PURPOSE
+                //Add validation for series_id
+                'series_id' => 'required|exists:series,series_id',
+
                 'ferrule' => 'required|numeric|between:0,99.9', 
                 'length' => 'required|numeric|between:0,99.9',
                 'weight' => 'required|numeric|between:0,99.9',
@@ -61,6 +69,10 @@ class ProductsController extends Controller
         $product = Products::create([
             'category_prefix' => $data['category_prefix'],
             'serial_id' => $data['serial_id'],
+            //TESTING PURPOSE
+            //ADD THIS LINE TO STORE SERIES_ID
+            'series_id' => $data['series_id'],
+
             'ferrule' => $data['ferrule'],
             'length' => $data['length'],
             'weight' => $data['weight'],
@@ -132,8 +144,20 @@ class ProductsController extends Controller
     public function fetch_categories(){
 
         $categories = Categories::all(); // Fetch all categories
-        return view('Seller.AddProducts', compact('categories'));
+        $series = Series::all();
+
+        return view('Seller.AddProducts',[
+            'categories' => $categories,
+            'series' => $series
+        ]);
+
+
+
+
+        //return view('Seller.AddProducts', compact('categories'));
     }
+
+
 
 
 }
