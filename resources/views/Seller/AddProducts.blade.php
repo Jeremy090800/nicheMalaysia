@@ -41,7 +41,7 @@
 
 
                     <!-- Category Dropdown -->
-                    <div class="mb-6">
+                    {{-- <div class="mb-6">
                         <div class="flex items-center justify-between mb-2">
                             <label class="text-gray-700 text-sm font-bold" for="category">
                                 Category: <span class="text-red-500">*</span>
@@ -67,7 +67,7 @@
                         @if($categories->isEmpty())
                             <p class="text-red-500 text-xs italic mt-2">No categories created yet</p>
                         @endif
-                    </div>
+                    </div> --}}
 
                     <!--Serial_id of the product-->
                     <div class="mb-4">
@@ -75,7 +75,6 @@
                             Serial ID: <span class="text-red-500">*</span>
                         </label>
                         <div class="flex items-center">
-                            <span id="serialPrefix" class="bg-gray-200 text-gray-700 py-2 px-3 rounded-l"></span>
                             <input class="shadow appearance-none border rounded-r w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="serial_id" name="serial_id" required>
                         </div>
                     </div>
@@ -324,20 +323,20 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const categorySelect = document.getElementById('category');
                 const serialIdInput = document.getElementById('serial_id');
-                const serialPrefix = document.getElementById('serialPrefix');
+                //const serialPrefix = document.getElementById('serialPrefix');
 
-                function updateSerialPrefix() {
-                    const selectedOption = categorySelect.options[categorySelect.selectedIndex];
-                    const categoryName = selectedOption.getAttribute('data-name');
-                    const categoryType = selectedOption.value;
+                // function updateSerialPrefix() {
+                //     const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+                //     const categoryName = selectedOption.getAttribute('data-name');
+                //     const categoryType = selectedOption.value;
 
-                    serialPrefix.textContent = categoryType + '-';
-                }
+                //     serialPrefix.textContent = categoryType + '-';
+                // }
 
-                categorySelect.addEventListener('change', updateSerialPrefix);
+                // categorySelect.addEventListener('change', updateSerialPrefix);
 
-                // Initial call to set the correct prefix and placeholder
-                updateSerialPrefix();
+                // // Initial call to set the correct prefix and placeholder
+                // updateSerialPrefix();
             });
 
 

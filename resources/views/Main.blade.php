@@ -75,10 +75,12 @@
         <a href="{{ url('/Seller/SellerLogin') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded inline-block">
             Seller Centre
         </a>
-
-
-
     </header>
+
+
+
+
+
 
     <div class="content-wrapper flex-grow flex flex-col bg-image">
         <div class="overlay">
@@ -110,6 +112,7 @@
         </div>
     </div>
     <!-- About Us End -->
+    
     <!-- About Start -->
     <div class="container-fluid bg-light overflow-hidden my-5">
         <div class="flex flex-wrap">

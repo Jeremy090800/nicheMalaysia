@@ -32,15 +32,9 @@
                         Create New Product
                     </a>
 
-                    <a href="{{ url('/Seller/AddCategories_SellerDashboard') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
-                        Create New Category
-                    </a>
-
-                    <a href="{{ url('/Seller/AddSeries') }}" class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
+                    <a href="{{ url('/Seller/AddSeries') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
                         Create New Series
                     </a>
-
-                    
 
                 </div>
             </div>
@@ -64,7 +58,7 @@
                                         <input type="checkbox" id="selectAll" onclick="toggleAllCheckboxes()">
                                     </th>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serial ID</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                    {{-- <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th> --}}
 
 
                                     
@@ -92,7 +86,7 @@
                                             <input type="checkbox" name="selected_products[]" value="{{ $product->id }}" class="product-checkbox" data-serial-id="{{ $product->serial_id }}">
                                         </td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_prefix }}-{{ $product->serial_id }}</td>
-                                        <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_name }}</td>
+                                        {{-- <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->categories->category_name }}</td> --}}
 
                                         <!--TESTING PURPOSE-->
                                         <td class="px-4 py-2 whitespace-nowrap text-sm">{{ $product->series->series_name }}</td>

@@ -14,7 +14,7 @@ use App\Models\Images;
 //import Products Model
 use App\Models\Products;
 //import Categories Model
-use App\Models\Categories;
+//use App\Models\Categories;
 //TESTING PURPOSE
 //import Series Model
 use App\Models\Series;
@@ -28,14 +28,15 @@ class ProductsController extends Controller
         // Validate and process the request data for products
         try {
             $data = $request->validate([
-                'category_prefix' => 'required|exists:categories,category_prefix',
-                'serial_id' => [
-                    'required',
-                    Rule::unique('products')->where(function ($query) use ($request) {
-                        return $query->where('category_prefix', $request->category_prefix);
-                    }),
-                ],
+                //'category_prefix' => 'required|exists:categories,category_prefix',
+                // 'serial_id' => [
+                //     'required',
+                //     Rule::unique('products')->where(function ($query) use ($request) {
+                //         return $query->where('category_prefix', $request->category_prefix);
+                //     }),
+                // ],
 
+                'serial_id' => 'required|string|unique:products,serial_id',
                 //TESTING PURPOSE
                 //Add validation for series_id
                 'series_id' => 'required|exists:series,series_id',
@@ -57,7 +58,7 @@ class ProductsController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             if ($e->validator->errors()->has('serial_id')) {
                 return redirect()->back()
-                    ->withErrors(['serial_id' => 'This Serial ID already exists with the given Category Prefix.'])
+                    ->withErrors(['serial_id' => 'This Serial ID already in use'])
                     ->withInput();
             }
             return redirect()->back()
@@ -67,7 +68,7 @@ class ProductsController extends Controller
 
         // Save the product 
         $product = Products::create([
-            'category_prefix' => $data['category_prefix'],
+            //'category_prefix' => $data['category_prefix'],
             'serial_id' => $data['serial_id'],
             //TESTING PURPOSE
             //ADD THIS LINE TO STORE SERIES_ID
@@ -114,40 +115,54 @@ class ProductsController extends Controller
     }
 
 
-    // Buyer
-    //search function (search product)
+    // // Buyer
+    // //search function (search product)
+    // public function search(Request $request)
+    // {
+    //     //$categoryType = $request->input('category_prefix');
+    //     $serialId = $request->input('serial_id');
+    
+    //     // Load the category relationship along with the images
+    //     $product = Products::with(['images', 'categories'])
+    //         ->where('serial_id', $serialId)
+    //         ->whereHas('categories', function ($query) use ($categoryType) {
+    //             $query->where('category_prefix', $categoryType);
+    //         })
+    //         ->first();
+    
+    //     return view('Buyer.BuyerSearchProducts', [
+    //         'product' => $product,
+    //         'searchPerformed' => true,
+    //         'categoryType' => $categoryType,
+    //         'serialId' => $serialId
+    //     ]);
+    // }
+
     public function search(Request $request)
     {
-        $categoryType = $request->input('category_prefix');
         $serialId = $request->input('serial_id');
     
-        // Load the category relationship along with the images
-        $product = Products::with(['images', 'categories'])
+        // Load only the images relationship
+        $product = Products::with('images')
             ->where('serial_id', $serialId)
-            ->whereHas('categories', function ($query) use ($categoryType) {
-                $query->where('category_prefix', $categoryType);
-            })
             ->first();
     
         return view('Buyer.BuyerSearchProducts', [
             'product' => $product,
             'searchPerformed' => true,
-            'categoryType' => $categoryType,
             'serialId' => $serialId
         ]);
     }
 
 
 
-
-
     public function fetch_categories(){
 
-        $categories = Categories::all(); // Fetch all categories
+        //$categories = Categories::all(); // Fetch all categories
         $series = Series::all();
 
         return view('Seller.AddProducts',[
-            'categories' => $categories,
+            //'categories' => $categories,
             'series' => $series
         ]);
 

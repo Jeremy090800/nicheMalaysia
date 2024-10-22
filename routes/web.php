@@ -34,16 +34,17 @@ Route::post('/Seller/SellerLogout', [SellerCentreController::class, 'logout']);
 
 //AddProducts
 Route::get('/Seller/AddProducts', [ProductsController::class, 'fetch_categories']);
-
-
 Route::post('Seller/AddProducts/handle_store_products_function', [ProductsController::class, 'store']);
 
 //AddCategories
 Route::get('/Seller/AddCategories', [CategoriesController::class, 'fetch_categories']);
 Route::post('/Seller/AddCategories/handle_store_categories_function', [CategoriesController::class, 'store']);
+
+
+
 //AddCategories_SellerDashboard
-Route::get('/Seller/AddCategories_SellerDashboard',[CategoriesController::class, 'fetch_categories_SellerDashboard']);
-Route::post('/Seller/AddCategories_SellerDashboard/handle_store_categories_function', [CategoriesController::class, 'store_SellerDashboard']);
+//Route::get('/Seller/AddCategories_SellerDashboard',[CategoriesController::class, 'fetch_categories_SellerDashboard']);
+//Route::post('/Seller/AddCategories_SellerDashboard/handle_store_categories_function', [CategoriesController::class, 'store_SellerDashboard']);
 
 //--------------------------------BUYER---------------------------------------------------------------------------------------------------------
 

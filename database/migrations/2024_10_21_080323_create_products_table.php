@@ -16,10 +16,10 @@ return new class extends Migration
             $table->id();
             
             //serieal_id of the product
-            $table->string('serial_id');
+            $table->string('serial_id')->unique();
 
-            //category type (specify the series of the cue)
-            $table->char('category_prefix', 6);
+            // //category type (specify the series of the cue)
+            // $table->char('category_prefix', 6);
 
 
             // Add foreign key for series
@@ -53,8 +53,8 @@ return new class extends Migration
             //created_at and updated_at
             $table->timestamps();
 
-            // Ensure that serial_id and category_prefix combination is unique
-            $table->unique(['serial_id', 'category_prefix']);
+            // // Ensure that serial_id and category_prefix combination is unique
+            // $table->unique(['serial_id', 'category_prefix']);
 
         });
 

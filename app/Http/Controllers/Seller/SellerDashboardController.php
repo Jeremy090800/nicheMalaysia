@@ -21,7 +21,8 @@ class SellerDashboardController extends Controller
 
         // Fetch all products and their associated images using eager loading
         //$products = Products::with('images')->get(); // Eager load the 'images' relationship
-        $products = Products::with(['images', 'categories','series'])->get();
+        //$products = Products::with(['images', 'categories','series'])->get();
+        $products = Products::with(['images','series'])->get();
 
         // If no products are found, return an empty collection (this part can be simplified)
         // if ($products->isEmpty()) {

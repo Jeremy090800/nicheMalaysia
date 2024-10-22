@@ -14,7 +14,7 @@ class Products extends Model
     //Define the fillable fields for mass assignment
     protected $fillable = [
     
-        'category_prefix',
+        //'category_prefix',
         'serial_id',
         'ferrule',
         'length',
@@ -34,10 +34,10 @@ class Products extends Model
         return $this-> hasOne(Images::class, 'serial_id', 'serial_id');
     }
 
-    //connection to categories_table
-    public function categories(){
-        return $this->belongsTo(Categories::class, 'category_prefix', 'category_prefix');
-    }
+    // //connection to categories_table
+    // public function categories(){
+    //     return $this->belongsTo(Categories::class, 'category_prefix', 'category_prefix');
+    // }
 
     // Add this new relationship method
     public function series(){
