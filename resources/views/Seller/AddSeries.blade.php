@@ -19,9 +19,13 @@
     </head>
 
     <body class="bg-gray-100">
-        <header class="bg-white shadow-md p-4 flex justify-center items-center">
-            <h1 class="text-2xl font-bold text-purple-600">NicheCue Malaysia</h1>
+
+        <header class="shadow-md p-3 flex justify-center items-center bg-black">
+            <img src="{{ asset('images/Niche_Cues_Thailand.jpg') }}" alt="NicheCue Logo" class="h-12 w-12 mr-2"> 
+            <h1 class="text-2xl font-bold text-white">Niche Cues Malaysia Factory</h1>
         </header>
+
+        
 
         <header class="p-4">
             <a href="{{ url('/') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block" id="backButton">
@@ -57,7 +61,7 @@
                             successMessage.remove(); // Remove the element from the DOM after fade out
                         }, 1000); // Wait for the transition to complete (1 second)
                     }
-                }, 5000); // Wait for 5 seconds before fading out
+                }, 2000); // Wait for 2 seconds before fading out
             </script>
         @endif
         

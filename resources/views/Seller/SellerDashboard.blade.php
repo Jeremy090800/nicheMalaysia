@@ -9,9 +9,13 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" >
     </head>
     <body class="bg-gray-100 min-h-screen flex flex-col">
-        <header class="bg-white shadow-md p-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-purple-600">Niche Malaysia Seller Centre</h1>
-            <button onclick="showLogoutConfirmation()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
+
+        <header class="relative shadow-md p-3 bg-black flex justify-center items-center">
+            <div class="flex items-center">
+                <img src="{{ asset('images/Niche_Cues_Thailand.jpg') }}" alt="NicheCue Logo" class="h-12 w-12 mr-2"> 
+                <h1 class="text-2xl font-bold text-white">Niche Cues Malaysia Factory</h1>
+            </div>
+            <button onclick="showLogoutConfirmation()" class="absolute right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
                 Logout
             </button>
         </header>
