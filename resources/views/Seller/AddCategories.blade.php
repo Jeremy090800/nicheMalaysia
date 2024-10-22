@@ -158,7 +158,7 @@
                     
                     <form id="editCategoryForm" method="POST" class="space-y-6">
                         @csrf
-                        <input type="hidden" name="category_prefix" id="editCategoryPrefix" value="">
+                        <input type="hidden" name="category_prefix" id="editSeriesPrefix" value="">
                         <div>
                             <label for="editCategoryName" class="block text-gray-700 text-lg mb-2">Category Name:</label>
                             <input type="text" name="category_name" id="editCategoryName" required class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">

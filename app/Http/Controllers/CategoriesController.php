@@ -66,7 +66,6 @@ class CategoriesController extends Controller
         //fetch all categories to dispaly them
         $categories = Categories::all();
 
-
         return view('Seller.AddCategories',compact('categories'));
     }
 

@@ -10,6 +10,8 @@ use App\Http\Controllers\Seller\SellerCentreController;
 use App\Http\Controllers\Seller\SellerDashboardController;
 //import CategoriesController
 use App\Http\Controllers\CategoriesController;
+//import SeriesController
+use App\Http\Controllers\SeriesController;
 
 
 // Main
@@ -52,9 +54,22 @@ Route::get('/Buyer/BuyerSearchProducts/handle_search_products_function', [Produc
 
 
 //-----------------TESTING----------------------
-//CATEGORY ADD
+//Update CATEGORY
 Route::post('Seller/UpdateCategories/{category_prefix}', [CategoriesController::class, 'update']);
-
+//Delete Category
 Route::delete('Seller/DeleteCategory/{category_prefix}', [CategoriesController::class, 'delete']);
 
 
+
+
+//Route::get('/Seller/AddSeries', [SeriesController::class, 'create']);
+
+
+
+Route::get('/Seller/AddSeries', [SeriesController::class, 'fetch_series']);
+Route::post('/Seller/AddSeries/handle_store_series_function', [SeriesController::class, 'store']);
+Route::post('/Seller/UpdateSeries/{seriesId}', [SeriesController::class, 'update']);
+Route::delete('/Seller/DeleteSeries/{seriesId}', [SeriesController::class, 'delete']);
+
+
+//Route::post('/series', [SeriesController::class, 'store'])->name('series.store');

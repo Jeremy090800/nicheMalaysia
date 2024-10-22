@@ -75,6 +75,13 @@
         <a href="{{ url('/Seller/SellerLogin') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded inline-block">
             Seller Centre
         </a>
+
+        <a href="{{ url('/Seller/AddSeries') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
+            Seller Series
+        </a>
+
+
+
     </header>
 
     <div class="content-wrapper flex-grow flex flex-col bg-image">

@@ -22,7 +22,10 @@ class Products extends Model
         'butt',
         'balancing',
         'description',
-        'owned_by'
+        'owned_by',
+
+        //ADD THIS LINE
+        'series_id'
 
     ];
 
@@ -34,6 +37,11 @@ class Products extends Model
     //connection to categories_table
     public function categories(){
         return $this->belongsTo(Categories::class, 'category_prefix', 'category_prefix');
+    }
+
+    // Add this new relationship method
+    public function series(){
+        return $this->belongsTo(Series::class, 'series_id', 'series_id');
     }
 
 }
