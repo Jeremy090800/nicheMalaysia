@@ -36,6 +36,7 @@ class ProductsController extends Controller
                 //     }),
                 // ],
 
+                'warranty_number' => 'required|string|unique:products,warranty_number',
                 'serial_id' => 'required|string|unique:products,serial_id',
                 //TESTING PURPOSE
                 //Add validation for series_id
@@ -56,9 +57,14 @@ class ProductsController extends Controller
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($e->validator->errors()->has('warranty_number')) {
+                return redirect()->back()
+                    ->withErrors(['warranty_number' => 'This Warranty Number is already in use'])
+                    ->withInput();
+            }
             if ($e->validator->errors()->has('serial_id')) {
                 return redirect()->back()
-                    ->withErrors(['serial_id' => 'This Serial ID already in use'])
+                    ->withErrors(['serial_id' => 'This Serial ID is already in use'])
                     ->withInput();
             }
             return redirect()->back()
@@ -69,6 +75,7 @@ class ProductsController extends Controller
         // Save the product 
         $product = Products::create([
             //'category_prefix' => $data['category_prefix'],
+            'warranty_number' => $data['warranty_number'],
             'serial_id' => $data['serial_id'],
             //TESTING PURPOSE
             //ADD THIS LINE TO STORE SERIES_ID
@@ -138,19 +145,37 @@ class ProductsController extends Controller
     //     ]);
     // }
 
+    // public function search(Request $request)
+    // {
+    //     $serialId = $request->input('serial_id');
+    
+    //     // Load only the images relationship
+    //     $product = Products::with('images')
+    //         ->where('serial_id', $serialId)
+    //         ->first();
+    
+    //     return view('Buyer.BuyerSearchProducts', [
+    //         'product' => $product,
+    //         'searchPerformed' => true,
+    //         'serialId' => $serialId
+    //     ]);
+    // }
+
     public function search(Request $request)
     {
-        $serialId = $request->input('serial_id');
-    
-        // Load only the images relationship
+        // Retrieve the warranty_number from the request input
+        $warrantyNumber = $request->input('warranty_number');
+
+        // Load the product by warranty_number and only the images relationship
         $product = Products::with('images')
-            ->where('serial_id', $serialId)
+            ->where('warranty_number', $warrantyNumber)
             ->first();
-    
+
+        // Return the result view with product and search status
         return view('Buyer.BuyerSearchProducts', [
             'product' => $product,
             'searchPerformed' => true,
-            'serialId' => $serialId
+            'warrantyNumber' => $warrantyNumber
         ]);
     }
 
@@ -158,7 +183,6 @@ class ProductsController extends Controller
 
     public function fetch_series(){
 
-        //$categories = Categories::all(); // Fetch all categories
         $series = Series::all();
 
         return view('Seller.AddProducts',[
@@ -166,10 +190,6 @@ class ProductsController extends Controller
             'series' => $series
         ]);
 
-
-
-
-        //return view('Seller.AddProducts', compact('categories'));
     }
 
 

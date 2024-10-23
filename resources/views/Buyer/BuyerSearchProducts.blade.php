@@ -40,28 +40,20 @@
     
     <body class="bg-gray-100 min-h-screen flex flex-col">
         <!-- Header with the Product Search title -->
-        <!-- <header class="shadow-md p-4 flex justify-center items-center">
-            <h1 class="text-2xl font-bold text-purple-600">NicheCue Malaysia</h1>
-        </header> -->
-
         <header class="shadow-md p-3 flex justify-center items-center bg-black">
             <!-- Small Logo beside the title using asset -->
             <img src="{{ asset('images/Niche_Cues_Thailand.jpg') }}" alt="NicheCue Logo" class="h-12 w-12 mr-2"> <!-- Adjust the size if needed -->
             <h1 class="text-2xl font-bold text-white">Niche Cues Malaysia Factory</h1>
-
-            <!--will be removed anytime, preserved for testing purpose-->
-            
-
-
         </header>
 
         <div class="content-wrapper flex-grow flex flex-col bg-image">
             <main class="flex-grow flex flex-col items-center justify-start px-4 py-8">
                 <div class="search-container bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full mb-16"> <!-- Added mb-16 for bottom margin -->
                     <!-- Search Product Title -->
-                    <h2 class="text-2xl font-bold mb-4 text-center text-gray-700">Search Product</h2>
+                    <h2 class="text-2xl font-bold mb-4 text-center text-gray-700">Find Your Cue</h2>
+                    
 
-                    <form action="{{ url('/Buyer/BuyerSearchProducts/handle_search_products_function') }}" method="GET" class="mb-8" id="searchForm">
+                    {{-- <form action="{{ url('/Buyer/BuyerSearchProducts/handle_search_products_function') }}" method="GET" class="mb-8" id="searchForm">
                         @csrf
                         <div class="flex items-center">
                             <input type="text" name="search_input" id="searchInput" placeholder="Enter Category Type-Serial ID" class="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
@@ -69,14 +61,28 @@
                             <input type="hidden" name="serial_id" id="serialId">
                             <button type="submit" class="bg-black text-white px-6 py-2 rounded-r-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600">Search</button>
                         </div>
+                    </form> --}}
+
+                    <form action="{{ url('/Buyer/BuyerSearchProducts/handle_search_products_function') }}" method="GET" class="mb-8" id="searchForm">
+                        @csrf
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="warranty_number">
+                            Enter Warranty Number
+                        </label>
+                        <div class="flex items-center">
+                            <input type="text" name="warranty_number" id="warrantyNumberInput" placeholder="Warranty Number" class="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                            <button type="submit" class="bg-black text-white px-6 py-2 rounded-r-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600">Search</button>
+                        </div>
                     </form>
+                    
+
+
 
                     @if(isset($searchPerformed) && $searchPerformed)
                         @if($product)
                             <h2 class="text-2xl font-bold mb-4">Product Specifications</h2>
                             <div class="grid grid-cols-2 gap-4 mb-6">
-                                <div><strong>Serial ID:</strong> {{ $product->categories->category_prefix }}-{{ $product->serial_id }}</div>
-                                <div><strong>Category:</strong> {{ $product->categories->category_name }}</div>
+                                <div><strong>Warranty_number:</strong> {{ $product->warranty_number }}</div>
+                                <div><strong>Serial ID:</strong> {{ $product->serial_id }}</div>
                                 <div><strong>Ferrule:</strong> {{ $product->ferrule }}</div>
                                 <div><strong>Length:</strong> {{ $product->length }}</div>
                                 <div><strong>Weight:</strong> {{ $product->weight }}</div>
@@ -125,26 +131,26 @@
         </nav>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const searchForm = document.getElementById('searchForm');
-                const searchInput = document.getElementById('searchInput');
-                const categoryTypeInput = document.getElementById('categoryType');
-                const serialIdInput = document.getElementById('serialId');
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     const searchForm = document.getElementById('searchForm');
+            //     const searchInput = document.getElementById('searchInput');
+            //     const categoryTypeInput = document.getElementById('categoryType');
+            //     const serialIdInput = document.getElementById('serialId');
 
-                searchForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const searchValue = searchInput.value.trim();
-                    const parts = searchValue.split('-');
+            //     searchForm.addEventListener('submit', function(e) {
+            //         e.preventDefault();
+            //         const searchValue = searchInput.value.trim();
+            //         const parts = searchValue.split('-');
 
-                    if (parts.length === 2) {
-                        categoryTypeInput.value = parts[0].trim();
-                        serialIdInput.value = parts[1].trim();
-                        searchForm.submit();
-                    } else {
-                        alert('Wrong Serial ID format');
-                    }
-                });
-            });
+            //         if (parts.length === 2) {
+            //             categoryTypeInput.value = parts[0].trim();
+            //             serialIdInput.value = parts[1].trim();
+            //             searchForm.submit();
+            //         } else {
+            //             alert('Wrong Serial ID format');
+            //         }
+            //     });
+            // });
         </script>
     </body>
 </html>

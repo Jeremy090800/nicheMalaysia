@@ -9,27 +9,19 @@ use Illuminate\Http\Request;
 use App\Models\Images;
 // Import Products Model
 use App\Models\Products;
-// Import Categories Model
+// Import Series Model
+use App\Models\Series;
 
 
 class SellerDashboardController extends Controller
 {
     public function fetch_products()
     {
-        
-
-
         // Fetch all products and their associated images using eager loading
-        //$products = Products::with('images')->get(); // Eager load the 'images' relationship
-        //$products = Products::with(['images', 'categories','series'])->get();
         $products = Products::with(['images','series'])->get();
-
-        // If no products are found, return an empty collection (this part can be simplified)
-        // if ($products->isEmpty()) {
-        //     $products = collect();
-        // }
+        $series = Series::all();
 
         // Pass products with their associated images to the SellerDashboard view
-        return view('Seller.SellerDashboard', compact('products'));
+        return view('Seller.SellerDashboard', compact('products', 'series'));
     }
 }

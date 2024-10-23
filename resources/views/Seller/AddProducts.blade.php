@@ -69,6 +69,20 @@
                         @endif
                     </div> --}}
 
+
+                    <!-- Warranty Number Field (New) -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="warranty_number">
+                            Warranty Number: <span class="text-red-500">*</span>
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                            type="text" 
+                            id="warranty_number" 
+                            name="warranty_number" 
+                            required 
+                            value="{{ old('warranty_number') }}">
+                    </div>
+
                     <!--Serial_id of the product-->
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="serial_id">

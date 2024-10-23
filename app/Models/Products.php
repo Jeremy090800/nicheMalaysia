@@ -15,7 +15,12 @@ class Products extends Model
     protected $fillable = [
     
         //'category_prefix',
+        'warranty_number',
         'serial_id',
+        //ADD THESE 2 LINES
+        'series_id',
+
+
         'ferrule',
         'length',
         'weight',
@@ -24,10 +29,10 @@ class Products extends Model
         'description',
         'owned_by',
 
-        //ADD THIS LINE
-        'series_id'
-
     ];
+
+
+
 
     //connection to images_table
     public function images(){

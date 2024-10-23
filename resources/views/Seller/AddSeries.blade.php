@@ -200,6 +200,11 @@
                         formChanged = true;
                     });
                 });
+
+                // Reset formChanged when form is submitted
+                form.addEventListener('submit', () => {
+                    formChanged = false;
+                });
             }
             // Handle page back button click
             document.getElementById('backButton').addEventListener('click', function(event) {
