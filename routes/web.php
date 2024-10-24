@@ -66,6 +66,10 @@ Route::post('/Seller/AddSeries/handle_store_series_function', [SeriesController:
 Route::post('/Seller/UpdateSeries/{seriesId}', [SeriesController::class, 'update']);
 Route::delete('/Seller/DeleteSeries/{seriesId}', [SeriesController::class, 'delete']);
 
+
+
+Route::get('/Seller/AddSeries_SellerDashboard', [SeriesController::class, 'fetch_series_sellerdashboard']);
+
 //--------------------------------SITEMAP--------------------------------------------------------------------------------------------------------- 
 
 Route::get('/sitemap.xml', function () {

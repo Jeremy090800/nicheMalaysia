@@ -32,7 +32,7 @@
                         Create New Product
                     </a>
 
-                    <a href="{{ url('/Seller/AddSeries') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
+                    <a href="{{ url('/Seller/AddSeries_SellerDashboard') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out w-full max-w-md text-center">
                         Create New Series
                     </a>
 

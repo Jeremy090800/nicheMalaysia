@@ -34,6 +34,7 @@
             .search-container{
                 padding-top: 1rem;
                 padding-bottom: 2rem;
+                padding-left: 1rem;
             }
         </style>
     </head>
@@ -48,30 +49,38 @@
 
         <div class="content-wrapper flex-grow flex flex-col bg-image">
             <main class="flex-grow flex flex-col items-center justify-start px-4 py-8">
-                <div class="search-container bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full mb-16"> <!-- Added mb-16 for bottom margin -->
+                <div class="search-container bg-white shadow-lg rounded-lg p-4 sm:p-8 max-w-[95%] sm:max-w-2xl w-full mb-16"> <!-- Added mb-16 for bottom margin -->
                     <!-- Search Product Title -->
                     <h2 class="text-2xl font-bold mb-4 text-center text-gray-700">Find Your Cue</h2>
                     
-
-                    {{-- <form action="{{ url('/Buyer/BuyerSearchProducts/handle_search_products_function') }}" method="GET" class="mb-8" id="searchForm">
-                        @csrf
-                        <div class="flex items-center">
-                            <input type="text" name="search_input" id="searchInput" placeholder="Enter Category Type-Serial ID" class="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
-                            <input type="hidden" name="category_prefix" id="categoryType">
-                            <input type="hidden" name="serial_id" id="serialId">
-                            <button type="submit" class="bg-black text-white px-6 py-2 rounded-r-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600">Search</button>
-                        </div>
-                    </form> --}}
 
                     <form action="{{ url('/Buyer/BuyerSearchProducts/handle_search_products_function') }}" method="GET" class="mb-8" id="searchForm">
                         @csrf
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="warranty_number">
                             Enter Warranty Number
                         </label>
-                        <div class="flex items-center">
-                            <input type="text" name="warranty_number" id="warrantyNumberInput" placeholder="Warranty Number" class="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
-                            <button type="submit" class="bg-black text-white px-6 py-2 rounded-r-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600">Search</button>
+
+
+                        
+                        <div class="flex flex-col sm:flex-row items-stretch gap-2">
+                            <div class="flex-grow">
+                                <input 
+                                    type="text" 
+                                    name="warranty_number" 
+                                    id="warrantyNumberInput" 
+                                    placeholder="Warranty Number" 
+                                    class="w-full px-4 py-2 border rounded-lg sm:rounded-l-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                >
+                            </div>
+                            <button 
+                                type="submit" 
+                                class="w-full sm:w-auto bg-black text-white px-6 py-2 rounded-lg sm:rounded-l-none sm:rounded-r-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600"
+                            >
+                                Search
+                            </button>
                         </div>
+
+
                     </form>
                     
 
@@ -83,11 +92,11 @@
                             <div class="grid grid-cols-2 gap-4 mb-6">
                                 <div><strong>Warranty_number:</strong> {{ $product->warranty_number }}</div>
                                 <div><strong>Serial ID:</strong> {{ $product->serial_id }}</div>
-                                <div><strong>Ferrule:</strong> {{ $product->ferrule }}</div>
-                                <div><strong>Length:</strong> {{ $product->length }}</div>
-                                <div><strong>Weight:</strong> {{ $product->weight }}</div>
-                                <div><strong>Butt:</strong> {{ $product->butt }}</div>
-                                <div><strong>Balancing:</strong> {{ $product->balancing }}</div>
+                                <div><strong>Ferrule(mm):</strong> {{ $product->ferrule }}</div>
+                                <div><strong>Length(mm):</strong> {{ $product->length }}</div>
+                                <div><strong>Weight(mm):</strong> {{ $product->weight }}</div>
+                                <div><strong>Butt(mm):</strong> {{ $product->butt }}</div>
+                                <div><strong>Balancing(mm):</strong> {{ $product->balancing }}</div>
                             </div>
 
                             @if($product->images)

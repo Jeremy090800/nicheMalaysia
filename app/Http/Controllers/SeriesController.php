@@ -99,4 +99,20 @@ class SeriesController extends Controller
 
 
 
+
+
+
+    //AddSeries_SellerDashboard
+    //fetch all the existing series to the AddSeries_SellerDashboard Page
+    public function fetch_series_sellerdashboard(){
+        $series = Series::all();
+
+        return view('Seller.AddSeries_SellerDashboard',compact('series'));
+    }
+
+
+
+
+
+
 }
