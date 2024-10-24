@@ -38,6 +38,8 @@ Route::post('/Seller/SellerLogin/handle_seller_login_function', [SellerCentreCon
 
 // SellerDashboard
 Route::get('/Seller/SellerDashboard', [SellerDashboardController::class, 'fetch_products']);
+//UPDATE PRODUCTS
+//DELETE PRODUCTS
 
 // SellerLogout
 Route::post('/Seller/SellerLogout', [SellerCentreController::class, 'logout']);
@@ -55,20 +57,16 @@ Route::get('/Buyer/BuyerSearchProducts', function () {
 Route::get('/Buyer/BuyerSearchProducts/handle_search_products_function', [ProductsController::class, 'search']);
 
 //-----------------TESTING----------------------
-// Update CATEGORY
-Route::post('Seller/UpdateCategories/{category_prefix}', [CategoriesController::class, 'update']);
-// Delete Category
-Route::delete('Seller/DeleteCategory/{category_prefix}', [CategoriesController::class, 'delete']);
-
 // Add Series
 Route::get('/Seller/AddSeries', [SeriesController::class, 'fetch_series']);
 Route::post('/Seller/AddSeries/handle_store_series_function', [SeriesController::class, 'store']);
 Route::post('/Seller/UpdateSeries/{seriesId}', [SeriesController::class, 'update']);
 Route::delete('/Seller/DeleteSeries/{seriesId}', [SeriesController::class, 'delete']);
 
-
-
+// AddSeries_SellerDashborad
 Route::get('/Seller/AddSeries_SellerDashboard', [SeriesController::class, 'fetch_series_sellerdashboard']);
+
+
 
 //--------------------------------SITEMAP--------------------------------------------------------------------------------------------------------- 
 

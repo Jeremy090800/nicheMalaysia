@@ -14,7 +14,9 @@
                 margin: 0;
                 padding: 0;
                 overflow-y: auto; /* Enable scrolling for the full body */
-                overflow-x: hidden; /* Prevent horizontal scrolling */
+                /*overflow-x: hidden; /* Prevent horizontal scrolling */
+                margin: 0;
+                padding: 0;
             }
 
             .bg-image {

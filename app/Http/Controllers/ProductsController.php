@@ -21,38 +21,25 @@ use App\Models\Series;
 
 class ProductsController extends Controller
 {
-    // Seller
-    // Store function for products
+    //--------------------------------BUYER---------------------------------------------------------------------------------------------------------
+    // AddProducts.blade.php
+    // validate and store products (store product)
     public function store(Request $request){
         
         // Validate and process the request data for products
         try {
             $data = $request->validate([
-                //'category_prefix' => 'required|exists:categories,category_prefix',
-                // 'serial_id' => [
-                //     'required',
-                //     Rule::unique('products')->where(function ($query) use ($request) {
-                //         return $query->where('category_prefix', $request->category_prefix);
-                //     }),
-                // ],
 
                 'warranty_number' => 'required|string|unique:products,warranty_number',
                 'serial_id' => 'required|string|unique:products,serial_id',
-                //TESTING PURPOSE
-                //Add validation for series_id
                 'series_id' => 'required|exists:series,series_id',
-
                 'ferrule' => 'required|numeric|between:0,99.9', 
                 'length' => 'required|numeric|between:0,99.9',
                 'weight' => 'required|numeric|between:0,99.9',
                 'butt' => 'required|numeric|between:0,99.9',
                 'balancing' => 'required|numeric|between:0,99.9',
-
                 'description' => 'nullable|string',
                 'owned_by' => 'nullable|string',
-                
-
-
                 'images' => 'required|array|min:1|max:6',
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
@@ -121,46 +108,15 @@ class ProductsController extends Controller
         return redirect('/Seller/AddProducts')->with('success', 'Product created successfully, but no images were uploaded.');
     }
 
+    // SellerDashboard.blade.php
+    // validate and update existing products
 
-    // // Buyer
-    // //search function (search product)
-    // public function search(Request $request)
-    // {
-    //     //$categoryType = $request->input('category_prefix');
-    //     $serialId = $request->input('serial_id');
-    
-    //     // Load the category relationship along with the images
-    //     $product = Products::with(['images', 'categories'])
-    //         ->where('serial_id', $serialId)
-    //         ->whereHas('categories', function ($query) use ($categoryType) {
-    //             $query->where('category_prefix', $categoryType);
-    //         })
-    //         ->first();
-    
-    //     return view('Buyer.BuyerSearchProducts', [
-    //         'product' => $product,
-    //         'searchPerformed' => true,
-    //         'categoryType' => $categoryType,
-    //         'serialId' => $serialId
-    //     ]);
-    // }
+    // SellerDashboard.blade.php
+    // delete exisiting products
 
-    // public function search(Request $request)
-    // {
-    //     $serialId = $request->input('serial_id');
-    
-    //     // Load only the images relationship
-    //     $product = Products::with('images')
-    //         ->where('serial_id', $serialId)
-    //         ->first();
-    
-    //     return view('Buyer.BuyerSearchProducts', [
-    //         'product' => $product,
-    //         'searchPerformed' => true,
-    //         'serialId' => $serialId
-    //     ]);
-    // }
 
+    // BuyerSearchProducts.blade.php
+    // search function (search product)
     public function search(Request $request)
     {
         // Retrieve the warranty_number from the request input
@@ -179,8 +135,8 @@ class ProductsController extends Controller
         ]);
     }
 
-
-
+    // AddProducts.blade.php
+    // fetch_series when adding product
     public function fetch_series(){
 
         $series = Series::all();
@@ -192,6 +148,9 @@ class ProductsController extends Controller
 
     }
 
+
+
+    
 
 
 
