@@ -92,11 +92,11 @@
                             <div class="grid grid-cols-2 gap-4 mb-6">
                                 <div><strong>Warranty_number:</strong> {{ $product->warranty_number }}</div>
                                 <div><strong>Serial ID:</strong> {{ $product->serial_id }}</div>
-                                <div><strong>Ferrule:</strong> {{ $product->ferrule }}</div>
-                                <div><strong>Length:</strong> {{ $product->length }}</div>
-                                <div><strong>Weight:</strong> {{ $product->weight }}</div>
-                                <div><strong>Butt:</strong> {{ $product->butt }}</div>
-                                <div><strong>Balancing:</strong> {{ $product->balancing }}</div>
+                                <div><strong>Ferrule(mm):</strong> {{ $product->ferrule }}</div>
+                                <div><strong>Length(mm):</strong> {{ $product->length }}</div>
+                                <div><strong>Weight(mm):</strong> {{ $product->weight }}</div>
+                                <div><strong>Butt(mm):</strong> {{ $product->butt }}</div>
+                                <div><strong>Balancing(mm):</strong> {{ $product->balancing }}</div>
                             </div>
 
                             @if($product->images)
