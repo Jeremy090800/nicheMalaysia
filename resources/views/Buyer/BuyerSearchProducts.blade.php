@@ -7,39 +7,59 @@
         <link rel="icon" href="{{ asset('images/niche_logo.jpg') }}" type="image/jpeg">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-        <!--added for the body background here-->
+        <!-- Custom CSS for styling -->
         <style>
             html, body {
-                height: 100%; /* Ensure the html and body take full height */
-                overflow: hidden; /* Prevent scrolling */
+                height: 100%; /* Full height for html and body */
+                margin: 0;
+                padding: 0;
+                overflow-y: auto; /* Enable scrolling for the full body */
+                overflow-x: hidden; /* Prevent horizontal scrolling */
             }
+
             .bg-image {
-                padding-bottom: 0.75rem;
                 background-image: url('{{ asset("images/Niche_F1_logo.jpg") }}');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
+                min-height: 100vh; /* Ensure the background stretches to the full viewport */
             }
+
             .content-wrapper {
-                min-height: calc(100vh - 0.75rem);
-                background-color: rgba(255, 255, 255, 0.8);
+                background-color: rgba(255, 255, 255, 0.8); /* Add a white overlay to the content */
             }
-            header {
-                background-color: white; /* Ensure it's solid white */
+
+            main {
+                padding: 1rem 0; /* Padding for the content */
             }
-            .bg-white {
-                background-color: rgba(255, 255, 255, 0.9) !important;
+
+            /* Image container with grid layout */
+            .product-images-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+                max-width: 100%;
+                overflow-y: auto; /* Scroll only when necessary */
             }
-            .search-container{
+
+            /* Ensure images are responsive */
+            .product-images-container img {
+                width: 100%;
+                height: auto;
+                max-height: 400px;
+            }
+
+            /* Search container styling */
+            .search-container {
                 padding-top: 1rem;
                 padding-bottom: 2rem;
                 padding-left: 1rem;
+                background-color: rgba(255, 255, 255, 0.9);
             }
         </style>
     </head>
-    
-    <body class="bg-gray-100 min-h-screen flex flex-col">
+    <body>
         <!-- Header with the Product Search title -->
         <header class="shadow-md p-3 flex justify-center items-center bg-black">
             <!-- Small Logo beside the title using asset -->
@@ -47,20 +67,17 @@
             <h1 class="text-2xl font-bold text-white">Niche Cues Malaysia Factory</h1>
         </header>
 
-        <div class="content-wrapper flex-grow flex flex-col bg-image">
+        <div class="bg-image content-wrapper">
             <main class="flex-grow flex flex-col items-center justify-start px-4 py-8">
-                <div class="search-container bg-white shadow-lg rounded-lg p-4 sm:p-8 max-w-[95%] sm:max-w-2xl w-full mb-16"> <!-- Added mb-16 for bottom margin -->
+                <div class="search-container bg-white shadow-lg rounded-lg p-4 sm:p-8 max-w-[95%] sm:max-w-2xl w-full mb-16">
                     <!-- Search Product Title -->
                     <h2 class="text-2xl font-bold mb-4 text-center text-gray-700">Find Your Cue</h2>
                     
-
                     <form action="{{ url('/Buyer/BuyerSearchProducts/handle_search_products_function') }}" method="GET" class="mb-8" id="searchForm">
                         @csrf
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="warranty_number">
                             Enter Warranty Number
                         </label>
-
-
                         
                         <div class="flex flex-col sm:flex-row items-stretch gap-2">
                             <div class="flex-grow">
@@ -79,13 +96,8 @@
                                 Search
                             </button>
                         </div>
-
-
                     </form>
                     
-
-
-
                     @if(isset($searchPerformed) && $searchPerformed)
                         @if($product)
                             <h2 class="text-2xl font-bold mb-4">Product Specifications</h2>
@@ -101,7 +113,7 @@
 
                             @if($product->images)
                                 <h3 class="text-lg font-bold mb-2">Product Images:</h3>
-                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <div class="product-images-container">
                                     @for($i = 1; $i <= 6; $i++)
                                         @php
                                             $imageData = $product->images->{"images_data_$i"};
@@ -109,7 +121,7 @@
                                         @endphp
                                         @if($imageData)
                                             <div>
-                                                <img src="data:image/jpeg;base64,{{ base64_encode($imageData) }}" alt="{{ $imageName }}" class="w-full h-auto rounded-lg shadow-md">
+                                                <img src="data:image/jpeg;base64,{{ base64_encode($imageData) }}" alt="{{ $imageName }}" class="rounded-lg shadow-md">
                                             </div>
                                         @endif
                                     @endfor
@@ -138,28 +150,5 @@
                 </a>
             </div>
         </nav>
-
-        <script>
-            // document.addEventListener('DOMContentLoaded', function() {
-            //     const searchForm = document.getElementById('searchForm');
-            //     const searchInput = document.getElementById('searchInput');
-            //     const categoryTypeInput = document.getElementById('categoryType');
-            //     const serialIdInput = document.getElementById('serialId');
-
-            //     searchForm.addEventListener('submit', function(e) {
-            //         e.preventDefault();
-            //         const searchValue = searchInput.value.trim();
-            //         const parts = searchValue.split('-');
-
-            //         if (parts.length === 2) {
-            //             categoryTypeInput.value = parts[0].trim();
-            //             serialIdInput.value = parts[1].trim();
-            //             searchForm.submit();
-            //         } else {
-            //             alert('Wrong Serial ID format');
-            //         }
-            //     });
-            // });
-        </script>
     </body>
 </html>
