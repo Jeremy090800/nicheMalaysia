@@ -79,9 +79,6 @@
 
 
 
-
-
-
     <div class="content-wrapper flex-grow flex flex-col bg-image">
         <div class="overlay">
             <div class="container">
