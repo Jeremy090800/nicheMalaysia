@@ -68,7 +68,7 @@
 
     <header class="shadow-md p-3 flex justify-center items-center bg-black">
         <img src="{{ asset('images/Niche_Cues_Thailand.jpg') }}" alt="NicheCue Logo" class="h-12 w-12 mr-2"> 
-        <h1 class="text-2xl font-bold text-white">Niche Cues Factory Malaysia Factory</h1>
+        <h1 class="text-2xl font-bold text-white">Niche Cues Factory Malaysia</h1>
 
         <!--will be removed anytime, preserved for testing purpose-->
 
@@ -86,7 +86,7 @@
                     <div class="col-12 col-lg-8 text-center">
                         <h5 class="text-white font-bold mb-3 animated slideInDown" style="font-size: 1.25rem">WELCOME TO</h5>
                         <h1 class="display-3 text-white animated slideInDown mb-4">Niche Cues Factory Malaysia</h1>
-                        <p class="fw-medium font-bold text-white mb-4 pb-2" style="font-size: 1.25rem">Your Trusted Cue Builder</p>
+                        <p class="fw-medium font-bold text-white mb-4 pb-2" style="font-size: 1.25rem">Your Trusted Cues Builder</p>
                     </div>
                 </div>
             </div>
