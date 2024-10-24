@@ -165,85 +165,98 @@
         
 
         <!-- Edit Product Modal -->
-        <div id="editProductModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
-            <div class="relative top-20 mx-auto p-6 border w-11/12 max-w-3xl shadow-lg rounded-md bg-white">
-                <div class="mt-3">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Edit Product Details</h3>
-                    <form id="editProductForm" method="POST" class="space-y-4">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" id="editProductId" name="id">
+        <div id="editProductModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+                <h2 class="text-2xl font-bold mb-6">Edit Product Details</h2>
+                
+                <form id="editProductForm" method="POST" class="space-y-6">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" id="editProductId" name="id">
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Warranty Number -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Warranty Number</label>
-                                <input type="text" id="editWarrantyNumber" name="warranty_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-
-                            <!-- Serial ID -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Serial ID</label>
-                                <input type="text" id="editSerialId" name="serial_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-
-                            <!-- Series -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Series</label>
-                                <select id="editSeries" name="series_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    @foreach($series as $s)
-                                        <option value="{{ $s->series_id }}">{{ $s->series_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <!-- Ferrule -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Ferrule (mm)</label>
-                                <input type="number" step="0.1" id="editFerrule" name="ferrule" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-
-                            <!-- Length -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Length (mm)</label>
-                                <input type="number" step="0.1" id="editLength" name="length" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-
-                            <!-- Weight -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Weight (mm)</label>
-                                <input type="number" step="0.1" id="editWeight" name="weight" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-
-                            <!-- Butt -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Butt (mm)</label>
-                                <input type="number" step="0.1" id="editButt" name="butt" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-
-                            <!-- Balancing -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Balancing</label>
-                                <input type="text" id="editBalancing" name="balancing" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                            </div>
-                        </div>
-
-                        <!-- Description -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Warranty Number -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea id="editDescription" name="description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                            <label for="editWarrantyNumber" class="block text-gray-700 text-lg mb-2">Warranty Number:</label>
+                            <input type="text" id="editWarrantyNumber" name="warranty_number" 
+                                class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
                         </div>
 
-                        <div class="flex justify-end space-x-3 mt-5">
-                            <button type="button" onclick="closeEditProductModal()" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300">
-                                Cancel
-                            </button>
-                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                                Save Changes
-                            </button>
+                        <!-- Serial ID -->
+                        <div>
+                            <label for="editSerialId" class="block text-gray-700 text-lg mb-2">Serial ID:</label>
+                            <input type="text" id="editSerialId" name="serial_id" 
+                                class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
                         </div>
-                    </form>
-                </div>
+
+                        <!-- Series -->
+                        <div>
+                            <label for="editSeries" class="block text-gray-700 text-lg mb-2">Series:</label>
+                            <select id="editSeries" name="series_id" 
+                                class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
+                                @foreach($series as $s)
+                                    <option value="{{ $s->series_id }}">{{ $s->series_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Ferrule -->
+                        <div>
+                            <label for="editFerrule" class="block text-gray-700 text-lg mb-2">Ferrule (mm):</label>
+                            <input type="number" step="0.1" id="editFerrule" name="ferrule" 
+                                class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
+                        </div>
+
+                        <!-- Length -->
+                        <div>
+                            <label for="editLength" class="block text-gray-700 text-lg mb-2">Length (mm):</label>
+                            <input type="number" step="0.1" id="editLength" name="length" 
+                                class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
+                        </div>
+
+                        <!-- Weight -->
+                        <div>
+                            <label for="editWeight" class="block text-gray-700 text-lg mb-2">Weight (mm):</label>
+                            <input type="number" step="0.1" id="editWeight" name="weight" 
+                                class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
+                        </div>
+
+                        <!-- Butt -->
+                        <div>
+                            <label for="editButt" class="block text-gray-700 text-lg mb-2">Butt (mm):</label>
+                            <input type="number" step="0.1" id="editButt" name="butt" 
+                                class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
+                        </div>
+
+                        <!-- Balancing -->
+                        <div>
+                            <label for="editBalancing" class="block text-gray-700 text-lg mb-2">Balancing:</label>
+                            <input type="text" id="editBalancing" name="balancing" 
+                                class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg">
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mt-6">
+                        <label for="editDescription" class="block text-gray-700 text-lg mb-2">Description:</label>
+                        <textarea id="editDescription" name="description" rows="4" 
+                            class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg"></textarea>
+                        <div class="mt-2 text-gray-600">
+                            Maximum characters: 16,383 | Used: <span id="editDescriptionCount">0</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between pt-6">
+                        <button type="button" onclick="closeEditProductModal()" 
+                            class="bg-red-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-red-600 transition-colors">
+                            Cancel
+                        </button>
+                        <button type="submit" 
+                            class="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition-colors">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 

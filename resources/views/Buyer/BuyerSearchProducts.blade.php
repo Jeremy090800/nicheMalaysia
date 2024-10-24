@@ -11,7 +11,9 @@
         <style>
             html, body {
                 height: 100%; /* Ensure the html and body take full height */
-                overflow: hidden; /* Prevent scrolling */
+                /*overflow: hidden; /* Prevent scrolling */
+                margin: 0;
+                padding: 0;
             }
             .bg-image {
                 padding-bottom: 0.75rem;
@@ -20,10 +22,13 @@
                 background-position: center;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
+                min-height: 100%;
             }
             .content-wrapper {
-                min-height: calc(100vh - 0.75rem);
+                /*min-height: calc(100vh - 0.75rem);*/
                 background-color: rgba(255, 255, 255, 0.8);
+                padding-bottom: 4rem;
+                /* overflow-y: auto; */
             }
             header {
                 background-color: white; /* Ensure it's solid white */
